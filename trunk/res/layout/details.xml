@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+    
+    <TableRow>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        	android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" 
+            android:orientation="horizontal" >
+            
+            <ImageView 
+			   android:id="@+id/test_image"
+			   android:layout_margin="5dp"
+			   android:src="@drawable/face"
+			   android:layout_width="128dp"
+			   android:layout_height="128dp" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	        	android:layout_width="fill_parent" 
+	            android:layout_height="fill_parent" 
+	            android:layout_margin="5dp"
+	            android:orientation="vertical" >
+	            
+	            <TextView 
+	                android:id="@+id/name"
+	            	android:layout_width="wrap_content"
+	              	android:layout_height="wrap_content"
+	              	android:text="Malcom Reynolds" />
+
+	            <TextView 
+	                android:id="@+id/title"
+	            	android:layout_width="wrap_content"
+	              	android:layout_height="wrap_content"
+	              	android:text="CEO - Vitamin Water" />
+
+	            <TextView 
+	                android:id="@+id/company"
+	            	android:layout_width="wrap_content"
+	              	android:layout_height="wrap_content"
+	              	android:text="Coca-Cola, Inc." />
+	      	</LinearLayout>
+        	        
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        	android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" 
+            android:orientation="horizontal" >
+            
+            <TextView 
+                android:id="@+id/labelPhone"
+            	android:layout_width="wrap_content"
+              	android:layout_height="wrap_content"
+              	android:layout_weight="1"
+              	android:text="Phone" />
+            
+            <TextView 
+                android:id="@+id/valuePhone"
+            	android:layout_width="wrap_content"
+              	android:layout_height="wrap_content"
+              	android:layout_weight="1"
+              	android:text="612.555.1234" />
+       	</LinearLayout>
+	</TableRow>
+
+    <TableRow>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        	android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" 
+            android:orientation="horizontal" >
+            
+            <TextView 
+                android:id="@+id/labelEmail"
+            	android:layout_width="wrap_content"
+              	android:layout_height="wrap_content"
+              	android:layout_weight="1"
+              	android:text="Email" />
+            
+            <TextView 
+                android:id="@+id/valueEmail"
+            	android:layout_width="wrap_content"
+              	android:layout_height="wrap_content"
+              	android:layout_weight="1"
+              	android:text="mreynolds@vwcc.com" />
+       	</LinearLayout>
+    </TableRow>
+
+    <TableRow>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        	android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" 
+            android:orientation="horizontal" >
+            
+            <TextView 
+                android:id="@+id/labelTwitter"
+            	android:layout_width="wrap_content"
+              	android:layout_height="wrap_content"
+              	android:layout_weight="1"
+              	android:text="Twitter ID" />
+            
+            <TextView 
+                android:id="@+id/valueTwitter"
+            	android:layout_width="wrap_content"
+              	android:layout_height="wrap_content"
+              	android:layout_weight="1"
+              	android:text="mrey_on_twitter" />
+       	</LinearLayout>
+    </TableRow>
+    
+</TableLayout>    
