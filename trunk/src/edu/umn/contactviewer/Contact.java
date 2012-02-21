@@ -1,10 +1,19 @@
 package edu.umn.contactviewer;
 
+import android.graphics.Bitmap;
+
 /** Model class for storing a single contact.
  *
  */
 public class Contact {
 	
+	private String _name;
+	private String _phone;
+	private String _title;	
+	private String _email;
+	private String _twitterId;
+	private Bitmap _image;
+
 	/** Creates a contact and assigns its name.
 	 * 
 	 * @param name the contact's name
@@ -12,8 +21,6 @@ public class Contact {
 	public Contact(String name) {
 		_name = name;
 	}
-	
-	private String _name;
 	
 	/** Set the contact's name.
 	 */
@@ -28,8 +35,6 @@ public class Contact {
 		return _name;
 	}
 	
-	private String _phone;
-
 	/**
 	 * @return the contact's phone number
 	 */
@@ -44,8 +49,6 @@ public class Contact {
 		return this;
 	}
 	
-	private String _title;
-
 	/**
 	 * @return The contact's title
 	 */
@@ -60,8 +63,6 @@ public class Contact {
 		return this;
 	}
 	
-	private String _email;
-
 	/**
 	 * @return the contact's e-mail address
 	 */
@@ -76,8 +77,6 @@ public class Contact {
 		return this;
 	}
 	
-	private String _twitterId;
-
 	/**
 	 * @return the contact's Twitter ID
 	 */
@@ -94,6 +93,16 @@ public class Contact {
 	
 	public String toString() {
 		return _name + " (" + _title + ")";
+	}
+	
+	public Bitmap getImage(){
+	
+		return _image;
+	}
+	
+	public Contact setImage(Bitmap image){
+		_image = image;
+		return this;
 	}
 }
 
