@@ -1,6 +1,5 @@
 package edu.umn.contactviewer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -13,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.*;
 
-/** Displays a list of contacts.
- *
- */
+/**
+ * Displays a list of contacts.
+ * */
 public class ContactListActivity extends ListActivity {
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -25,19 +25,24 @@ public class ContactListActivity extends ListActivity {
         
         new ToolbarConfig(this, "Contacts");
         
-        ContactStore store = new ContactStore();
-        
-        // initialize the list view
-        setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
-        ListView lv = getListView();
-        lv.setTextFilterEnabled(true);
-        
-        // handle the item click events
-        lv.setOnItemClickListener(new OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        		ShowContactDetail();
-        	}
-        });        
+        //go get a store for us to get data from
+        IContactStore store = ContactStoreFactory.getInstance().getContactStore();
+
+        if(null != store){
+        	
+	        // initialize the list view
+	        setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
+	        ListView lv = getListView();
+	        lv.setTextFilterEnabled(true);
+	        
+	        // handle the item click events
+	        lv.setOnItemClickListener(new OnItemClickListener() {
+	        	
+	        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	        		ShowContactDetail();
+	        	}
+	        });        
+        }
     }   
 
 	public void ShowContactDetail(){
@@ -56,6 +61,7 @@ public class ContactListActivity extends ListActivity {
 	
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			
 			LayoutInflater inflater = getLayoutInflater();
 			View item = inflater.inflate(R.layout.list_item, parent, false);
 			

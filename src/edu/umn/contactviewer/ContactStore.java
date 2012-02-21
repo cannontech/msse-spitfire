@@ -2,14 +2,16 @@ package edu.umn.contactviewer;
 
 import java.util.ArrayList;
 
+import android.R.string;
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * storage methods for the contacts (to json??)
  * */
-public class ContactStore extends Activity {
+public class ContactStore extends Activity implements IContactStore {
 	
 	public static final String CONTACTS = "ContactsFile";
 	
@@ -37,58 +39,78 @@ public class ContactStore extends Activity {
 ////      editor.commit();
 //    }
     
+	//public ContactStore(Context context){
 	public ContactStore(){
         
 		// make some contacts
         _contacts = new ArrayList<Contact>();
+        
+        Bitmap face = null;
+        try{
+        	//get an image to go with each contact (the same, right now)
+        	//face = BitmapFactory.decodeResource(context.getResources(), R.drawable.face);
+        }
+        catch(Exception ex)
+        {
+        	String xx = ex.getMessage();
+        }
+        
         
         _contacts.add(new Contact("Malcom Reynolds")
     		.setEmail("mal@serenity.com")
     		.setTitle("Captain")
     		.setPhone("612-555-1234")
     		.setTwitterId("malcomreynolds"));
+    		//.setImage(face));
         
         _contacts.add(new Contact("Zoe Washburne")
 			.setEmail("zoe@serenity.com")
 			.setTitle("First Mate")
 			.setPhone("612-555-5678")
 			.setTwitterId("zoewashburne"));
+			//.setImage(face));
         
         _contacts.add(new Contact("Hoban Washburne")
 			.setEmail("wash@serenity.com")
 			.setTitle("Pilot")
 			.setPhone("612-555-9012")
 			.setTwitterId("wash"));
+			//.setImage(face));
         
         _contacts.add(new Contact("Jayne Cobb")
 			.setEmail("jayne@serenity.com")
 			.setTitle("Muscle")
 			.setPhone("612-555-3456")
 			.setTwitterId("heroofcanton"));
+			//.setImage(face));
         
         _contacts.add(new Contact("Kaylee Frye")
 			.setEmail("kaylee@serenity.com")
 			.setTitle("Engineer")
 			.setPhone("612-555-7890")
 			.setTwitterId("kaylee"));
+			//.setImage(face));
         
         _contacts.add(new Contact("Simon Tam")
 			.setEmail("simon@serenity.com")
 			.setTitle("Doctor")
 			.setPhone("612-555-4321")
 			.setTwitterId("simontam"));
+			//.setImage(face));
         
         _contacts.add(new Contact("River Tam")
 			.setEmail("river@serenity.com")
 			.setTitle("Doctor's Sister")
 			.setPhone("612-555-8765")
 			.setTwitterId("miranda"));
+			//.setImage(face));
         
         _contacts.add(new Contact("Shepherd Book")
 			.setEmail("shepherd@serenity.com")
 			.setTitle("Shepherd")
 			.setPhone("612-555-2109")
 			.setTwitterId("shepherdbook"));
+			//.setImage(face));
 	}
 	
 	public ArrayList<Contact> getContacts(){
