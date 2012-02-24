@@ -21,7 +21,7 @@ public class ContactListActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
 
     	super.onCreate(savedInstanceState);
-        setContentView(R.layout.list);
+        super.setContentView(R.layout.list);
         
         new ToolbarConfig(this, "Contacts");
         
@@ -31,23 +31,27 @@ public class ContactListActivity extends ListActivity {
         if(null != store){
         	
 	        // initialize the list view
-	        setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
-	        ListView lv = getListView();
+        	super.setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
+
+        	ListView lv = super.getListView();
 	        lv.setTextFilterEnabled(true);
 	        
 	        // handle the item click events
 	        lv.setOnItemClickListener(new OnItemClickListener() {
 	        	
 	        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        		ShowContactDetail();
+	        		
+	        		ShowContactDetail(position);
 	        	}
 	        });        
         }
     }   
 
-	public void ShowContactDetail(){
+	public void ShowContactDetail(int selectedPosition){
 		
 		Intent intent = new Intent(this, ContactDetailsActivity.class);
+		intent.putExtra("offset", selectedPosition);
+		
 		startActivity(intent);
 	}
 

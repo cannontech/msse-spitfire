@@ -53,63 +53,70 @@ public class ContactStore extends Activity implements IContactStore {
         catch(Exception ex)
         {
         	String xx = ex.getMessage();
-        }
-        
+        }        
         
         _contacts.add(new Contact("Malcom Reynolds")
     		.setEmail("mal@serenity.com")
     		.setTitle("Captain")
     		.setPhone("612-555-1234")
-    		.setTwitterId("malcomreynolds"));
+    		.setTwitterId("malcomreynolds")
+    		.setCompany("Company One"));
     		//.setImage(face));
         
         _contacts.add(new Contact("Zoe Washburne")
 			.setEmail("zoe@serenity.com")
 			.setTitle("First Mate")
 			.setPhone("612-555-5678")
-			.setTwitterId("zoewashburne"));
+			.setTwitterId("zoewashburne")
+			.setCompany("Company Two"));
 			//.setImage(face));
         
         _contacts.add(new Contact("Hoban Washburne")
 			.setEmail("wash@serenity.com")
 			.setTitle("Pilot")
 			.setPhone("612-555-9012")
-			.setTwitterId("wash"));
+			.setTwitterId("wash")
+			.setCompany("Company Three"));
 			//.setImage(face));
         
         _contacts.add(new Contact("Jayne Cobb")
 			.setEmail("jayne@serenity.com")
 			.setTitle("Muscle")
 			.setPhone("612-555-3456")
-			.setTwitterId("heroofcanton"));
+			.setTwitterId("heroofcanton")
+			.setCompany("Company Four"));
 			//.setImage(face));
         
         _contacts.add(new Contact("Kaylee Frye")
 			.setEmail("kaylee@serenity.com")
 			.setTitle("Engineer")
 			.setPhone("612-555-7890")
-			.setTwitterId("kaylee"));
+			.setTwitterId("kaylee")
+			.setCompany("Company Five"));
 			//.setImage(face));
         
         _contacts.add(new Contact("Simon Tam")
 			.setEmail("simon@serenity.com")
 			.setTitle("Doctor")
 			.setPhone("612-555-4321")
-			.setTwitterId("simontam"));
+			.setTwitterId("simontam")
+			.setCompany("Company Six"));
 			//.setImage(face));
         
         _contacts.add(new Contact("River Tam")
 			.setEmail("river@serenity.com")
 			.setTitle("Doctor's Sister")
 			.setPhone("612-555-8765")
-			.setTwitterId("miranda"));
+			.setTwitterId("miranda")
+			.setCompany("Company Seven"));
 			//.setImage(face));
         
         _contacts.add(new Contact("Shepherd Book")
 			.setEmail("shepherd@serenity.com")
 			.setTitle("Shepherd")
 			.setPhone("612-555-2109")
-			.setTwitterId("shepherdbook"));
+			.setTwitterId("shepherdbook")
+			.setCompany("Company Eight"));
 			//.setImage(face));
 	}
 	
