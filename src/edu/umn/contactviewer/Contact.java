@@ -12,6 +12,7 @@ public class Contact {
 	private String _title;	
 	private String _email;
 	private String _twitterId;
+	private String _company;
 	private Bitmap _image;
 
 	/** Creates a contact and assigns its name.
@@ -102,6 +103,15 @@ public class Contact {
 	
 	public Contact setImage(Bitmap image){
 		_image = image;
+		return this;
+	}
+
+	public String getCompany() {
+		return _company;
+	}
+
+	public Contact setCompany(String company) {
+		_company = company;
 		return this;
 	}
 }
