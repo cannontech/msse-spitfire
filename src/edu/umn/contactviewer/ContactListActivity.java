@@ -22,8 +22,11 @@ public class ContactListActivity extends ListActivity {
 
     	super.onCreate(savedInstanceState);
         super.setContentView(R.layout.list);
-        
-        new ToolbarConfig(this, "Contacts");
+
+        ToolbarConfig toolbar = new ToolbarConfig(this, "Contacts");
+        Button addButton = toolbar.getToolbarRightButton();
+        addButton.setVisibility(View.VISIBLE);
+        addButton.setText("Add");
         
         //go get a store for us to get data from
         IContactStore store = ContactStoreFactory.getInstance().getContactStore();
@@ -58,6 +61,10 @@ public class ContactListActivity extends ListActivity {
                 public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.delete:
+                            //TODO
+                            return true;
+                        case R.id.edit:
+                            //TODO
                             return true;
                         default:
                             return false;
@@ -91,7 +98,7 @@ public class ContactListActivity extends ListActivity {
                 }
             });
         }
-    }   
+    }
 
 	public void ShowContactDetail(int selectedPosition){
 		
