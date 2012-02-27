@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import edu.umn.contactviewer.data.ContactStoreFactory;
+import edu.umn.contactviewer.data.IContactStore;
+import edu.umn.contactviewer.data.InternalStorageContactStore;
 
 /**
  * presents details for a single contact item
@@ -32,9 +36,10 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
 	private void updateView(int offset) {
 		
         //go get a store for us to get data from
-        IContactStore store = ContactStoreFactory.getInstance().getContactStore();
+        IContactStore store = new InternalStorageContactStore(getApplicationContext());
+
         Contact selectedContact = store.getContactById(offset);
-        
+
         TextView name = (TextView)findViewById(R.id.name);
         name.setText(selectedContact.getName());
         

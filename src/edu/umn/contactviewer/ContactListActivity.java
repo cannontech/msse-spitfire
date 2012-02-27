@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import edu.umn.contactviewer.data.ContactStoreFactory;
+import edu.umn.contactviewer.data.IContactStore;
+import edu.umn.contactviewer.data.InternalStorageContactStore;
 
 /**
  * Displays a list of contacts.
@@ -26,7 +29,7 @@ public class ContactListActivity extends ListActivity {
         new ToolbarConfig(this, "Contacts");
         
         //go get a store for us to get data from
-        IContactStore store = ContactStoreFactory.getInstance().getContactStore();
+        IContactStore store = new InternalStorageContactStore(getApplicationContext());
 
         if(null != store){
         	
@@ -40,7 +43,6 @@ public class ContactListActivity extends ListActivity {
 	        lv.setOnItemClickListener(new OnItemClickListener() {
 	        	
 	        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        		
 	        		ShowContactDetail(position);
 	        	}
 	        });        
@@ -49,9 +51,9 @@ public class ContactListActivity extends ListActivity {
 
 	public void ShowContactDetail(int selectedPosition){
 		
-		Intent intent = new Intent(this, ContactDetailsActivity.class);
-		intent.putExtra("offset", selectedPosition);
-		
+		Intent intent = new Intent(this, ContactDetailsActivity.class);		
+        intent.putExtra("offset", selectedPosition);
+        Contact c = (Contact)this.getListAdapter().getItem(selectedPosition);
 		startActivity(intent);
 	}
 
