@@ -33,6 +33,7 @@ public final class R {
         public static final int company=0x7f080003;
         public static final int contacts_button=0x7f08000f;
         public static final int delete=0x7f080015;
+        public static final int edit=0x7f080016;
         public static final int item_icon=0x7f08000c;
         public static final int item_name=0x7f08000a;
         public static final int item_phone=0x7f08000d;
@@ -64,10 +65,12 @@ public final class R {
     }
     public static final class string {
         public static final int about=0x7f050003;
+        public static final int add=0x7f050007;
         public static final int app_name=0x7f050001;
         public static final int back=0x7f050004;
         public static final int contacts=0x7f050002;
         public static final int delete=0x7f050005;
+        public static final int edit=0x7f050006;
         public static final int hello_world=0x7f050000;
     }
     public static final class style {
