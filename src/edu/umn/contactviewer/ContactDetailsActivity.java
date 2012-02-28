@@ -6,6 +6,8 @@ import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import edu.umn.contactviewer.data.Contact;
+import edu.umn.contactviewer.data.ContactMapper;
 
 /**
  * presents details for a single contact item
@@ -16,11 +18,8 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
 		
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.details);
-        
-        Bundle extras = super.getIntent().getExtras();
-
-        updateView(extras.getInt("offset"));
+        super.setContentView(R.layout.details);        
+        updateView();              
         
         ToolbarConfig tb = new ToolbarConfig(this, "Contact Details");
         
@@ -29,12 +28,13 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
         btn.setText("Edit");
     }
 
-	private void updateView(int offset) {
+	private void updateView() {
 		
         //go get a store for us to get data from
-        IContactStore store = ContactStoreFactory.getInstance().getContactStore();
-        Contact selectedContact = store.getContactById(offset);
-        
+
+        Bundle extras = super.getIntent().getExtras();
+        Contact selectedContact = ContactMapper.fromJsonString(extras.getString("selectedContact"));
+
         TextView name = (TextView)findViewById(R.id.name);
         name.setText(selectedContact.getName());
         

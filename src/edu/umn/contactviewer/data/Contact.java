@@ -1,4 +1,4 @@
-package edu.umn.contactviewer;
+package edu.umn.contactviewer.data;
 
 import android.graphics.Bitmap;
 
@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
  *
  */
 public class Contact {
-	
+
 	private String _name;
 	private String _phone;
 	private String _title;	
