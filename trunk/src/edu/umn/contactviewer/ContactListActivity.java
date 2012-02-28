@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import edu.umn.contactviewer.data.Contact;
+import edu.umn.contactviewer.data.ContactMapper;
+import edu.umn.contactviewer.data.IContactStore;
+import edu.umn.contactviewer.data.InternalStorageContactStore;
 
 /**
  * Displays a list of contacts.
@@ -29,7 +33,7 @@ public class ContactListActivity extends ListActivity {
         addButton.setText("Add");
         
         //go get a store for us to get data from
-        IContactStore store = ContactStoreFactory.getInstance().getContactStore();
+        IContactStore store = new InternalStorageContactStore(getApplicationContext());
 
         if(null != store){
         	
@@ -103,8 +107,8 @@ public class ContactListActivity extends ListActivity {
 	public void ShowContactDetail(int selectedPosition){
 		
 		Intent intent = new Intent(this, ContactDetailsActivity.class);
-		intent.putExtra("offset", selectedPosition);
-		
+        Contact selected = (Contact)this.getListAdapter().getItem(selectedPosition);
+        intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
 		startActivity(intent);
 	}
 

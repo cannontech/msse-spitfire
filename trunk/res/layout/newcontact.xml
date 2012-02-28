@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+  <include layout="@layout/toolbar"
+             android:layout_weight="0"/>
+
+  <LinearLayout
+      android:id="@+id/linearLayoutName"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+      <TextView
+          android:id="@+id/labelName"
+          android:layout_width="fill_parent"          
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Name"/>
+      <EditText 
+          android:id="@+id/txtName"
+          android:layout_width="fill_parent"          
+          android:layout_height="wrap_content"
+          android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayoutCompany"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/labelCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Company"/>
+        <EditText
+                android:id="@+id/txtCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayoutTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/labelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Title"/>
+        <EditText
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+    </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/linearLayoutEmail"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">      
+	<TextView
+          android:id="@+id/labelEmail"
+          android:layout_width="wrap_content"          
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Email"/>
+     <EditText 
+          android:id="@+id/txtEmail"
+          android:layout_width="wrap_content"          
+          android:layout_height="wrap_content"
+          android:layout_weight="1"/>
+    </LinearLayout>
+     
+	<LinearLayout
+      android:id="@+id/linearLayoutPhone"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">      
+     
+	  <TextView
+          android:id="@+id/labelPhone"
+          android:layout_width="fill_parent"          
+          android:layout_height="wrap_content"
+          android:text="Phone"
+          android:layout_weight="1"/>
+      <EditText 
+          android:id="@+id/txtPhone"
+          android:layout_width="fill_parent"          
+          android:layout_height="wrap_content"
+          android:layout_weight="1"/>      
+    </LinearLayout>
+    
+  	<LinearLayout
+      android:id="@+id/linearLayoutTwitter"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+      
+      <TextView
+          android:id="@+id/labelTwitter"
+          android:layout_width="fill_parent"          
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Twitter"/>
+      <EditText 
+          android:id="@+id/txtTwitter"
+          android:layout_width="fill_parent"
+          android:layout_weight="1"          
+          android:layout_height="wrap_content"/>          
+  	</LinearLayout>  
+  	<LinearLayout
+      android:id="@+id/linearLayoutButton"
+      android:layout_width="fill_parent"      
+      android:layout_height="wrap_content">
+	    <Button android:id="@+id/save_button"
+	        style="@style/ToolbarButton"
+	        android:text="Save"
+	        android:layout_weight="0">
+	    </Button>
+     </LinearLayout>
+</LinearLayout>
