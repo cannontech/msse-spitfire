@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.umn.contactviewer.R;
@@ -43,11 +44,14 @@ public class InternalStorageContactStore implements IContactStore {
         String contents = null;
         StringBuilder builder = null;
         InputStream stream = null;
-        boolean isFirstRun = hasBeenSaved();        
+        boolean fileExists = fileExists();
         try{    
-            if (isFirstRun){
+            if (fileExists){
+                //load it from internal storage
                 stream = _applicationContext.openFileInput(CONTACTS_FILE);
-            }else{                
+
+            }else{
+                //load the raw file shipped with the app.
                 stream = _applicationContext.getResources().openRawResource(R.raw.contacts);
             }
             
@@ -64,7 +68,8 @@ public class InternalStorageContactStore implements IContactStore {
             Gson contactMaker = new Gson();
             Type collectionType = new TypeToken<List<Contact>>(){}.getType();
             _contacts = contactMaker.fromJson(contents, collectionType);
-            if (isFirstRun){
+
+            if (!fileExists){
                 Flush(); //let's copy the contents to local storage.
             }
 
@@ -73,11 +78,14 @@ public class InternalStorageContactStore implements IContactStore {
         }
     }
 
-    private boolean hasBeenSaved() {
+    private boolean fileExists() {
+
+        File dataDir = Environment.getDataDirectory();
+
         String[] files = _applicationContext.fileList();
         boolean fileExists = false;
         for (String file: files){
-            if (file.toLowerCase()==CONTACTS_FILE.toLowerCase()){
+            if (file.toLowerCase().equals(CONTACTS_FILE.toLowerCase())){
                 fileExists = true;
                 break;
             }
@@ -89,19 +97,18 @@ public class InternalStorageContactStore implements IContactStore {
 	public List<Contact> getContacts(){
 		return _contacts;
 	}
-
     
-    public Contact getContactByName(String name){
-
-        Contact theContact = null;
-        for (Contact contact : _contacts){
-            if (contact.getName()==name){
-                theContact=contact;
+    public Contact update(Contact contact) {
+        Contact theContact = null;         
+        for (Contact aContact : _contacts){
+            if (aContact.getName().equals(aContact.getName())){
+                int idx = _contacts.indexOf(aContact);
+                _contacts.set(idx, contact);
             }
         }
+        return contact;
+    }
 
-		return theContact;
-	}
 	
 	public Contact saveContact(Contact contact){
 		_contacts.add(contact);
@@ -113,7 +120,12 @@ public class InternalStorageContactStore implements IContactStore {
         return contact;
 	}
 
-    
+    @Override
+    public void delete(Contact contact) {
+        _contacts.remove(contact);
+    }
+
+
     public Contact getContactById(int offset) {
         return _contacts.get(offset);
     }

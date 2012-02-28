@@ -32,8 +32,8 @@ public final class R {
         public static final int about_button=0x7f090010;
         public static final int company=0x7f090003;
         public static final int contacts_button=0x7f09000f;
-        public static final int delete=0x7f090026;
-        public static final int edit=0x7f090027;
+        public static final int delete=0x7f090024;
+        public static final int edit=0x7f090025;
         public static final int item_icon=0x7f09000c;
         public static final int item_name=0x7f09000a;
         public static final int item_phone=0x7f09000d;
@@ -44,7 +44,6 @@ public final class R {
         public static final int labelPhone=0x7f090004;
         public static final int labelTitle=0x7f090018;
         public static final int labelTwitter=0x7f090008;
-        public static final int linearLayoutButton=0x7f090020;
         public static final int linearLayoutCompany=0x7f090014;
         public static final int linearLayoutEmail=0x7f09001a;
         public static final int linearLayoutName=0x7f090011;
@@ -53,13 +52,12 @@ public final class R {
         public static final int linearLayoutTwitter=0x7f09001e;
         public static final int logo=0x7f09000e;
         public static final int name=0x7f090001;
-        public static final int save_button=0x7f090021;
         public static final int test_image=0x7f090000;
         public static final int title=0x7f090002;
-        public static final int toolbar=0x7f090022;
-        public static final int toolbar_back_button=0x7f090023;
-        public static final int toolbar_right_button=0x7f090025;
-        public static final int toolbar_title=0x7f090024;
+        public static final int toolbar=0x7f090020;
+        public static final int toolbar_back_button=0x7f090021;
+        public static final int toolbar_right_button=0x7f090023;
+        public static final int toolbar_title=0x7f090022;
         public static final int txtCompany=0x7f090016;
         public static final int txtEmail=0x7f09001b;
         public static final int txtName=0x7f090013;
