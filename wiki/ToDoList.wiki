@@ -2,5 +2,6 @@
 
 =To Do=
 
-#Danny - Integrate persistence
-#Jeff - About Activity
+Danny - Integrate persistence
+Jeff - About Activity
+Eric - Merge Branches?
