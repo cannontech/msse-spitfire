@@ -123,6 +123,11 @@ public class InternalStorageContactStore implements IContactStore {
     @Override
     public void delete(Contact contact) {
         _contacts.remove(contact);
+        try {
+            Flush();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
 
