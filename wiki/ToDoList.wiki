@@ -1,7 +1,0 @@
-#ToDo List for Android Contact Viewer
-
-=To Do=
-
-Danny - Integrate persistence
-Jeff - About Activity
-Eric - Merge Branches?
