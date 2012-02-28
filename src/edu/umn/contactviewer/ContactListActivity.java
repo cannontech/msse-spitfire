@@ -31,77 +31,77 @@ public class ContactListActivity extends ListActivity {
         Button addButton = toolbar.getToolbarRightButton();
         addButton.setVisibility(View.VISIBLE);
         addButton.setText("Add");
-        
+        addButton.setOnClickListener(new View.OnClickListener() {           
+            public void onClick(View view) {
+                handleNew();
+            }
+        });        
         //go get a store for us to get data from
         IContactStore store = new InternalStorageContactStore(getApplicationContext());
 
-        if(null != store){
-        	
-	        // initialize the list view
-        	super.setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
+        
+        // initialize the list view
+        super.setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
 
-        	ListView lv = super.getListView();
-	        lv.setTextFilterEnabled(true);
-	        
-	        // handle the item click events
-	        lv.setOnItemClickListener(new OnItemClickListener() {
-	        	
-	        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        		
-	        		ShowContactDetail(position);
-	        	}
-	        });
+        ListView lv = super.getListView();
+        lv.setTextFilterEnabled(true);
 
-            mActionModeCallback = new ActionMode.Callback() {
-                @Override
-                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                    // Inflate a menu resource providing context menu items
-                    MenuInflater inflater = mode.getMenuInflater();
-                    inflater.inflate(R.menu.list_context_menu, menu);
-                    return true;
+        // handle the item click events
+        lv.setOnItemClickListener(new OnItemClickListener() {	        	
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShowContactDetail(position);
+            }
+        });
+
+        mActionModeCallback = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Inflate a menu resource providing context menu items
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.list_context_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.delete:
+                        //TODO
+                        return true;
+                    case R.id.edit:
+                        handleEdit(1);
+                        return true;
+                    default:
+                        return false;
                 }
+            }
 
-                @Override
-                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.delete:
-                            //TODO
-                            return true;
-                        case R.id.edit:
-                            //TODO
-                            return true;
-                        default:
-                            return false;
-                    }
-                }
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // Here you can perform updates to the CAB due to
+                // an invalidate() request
+                return false;
+            }
 
-                @Override
-                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                    // Here you can perform updates to the CAB due to
-                    // an invalidate() request
-                    return false;
-                }
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                // Here you can make any necessary updates to the activity when
+                // the CAB is removed. By default, selected items are deselected/unchecked.
+            }
 
-                @Override
-                public void onDestroyActionMode(ActionMode mode) {
-                    // Here you can make any necessary updates to the activity when
-                    // the CAB is removed. By default, selected items are deselected/unchecked.
-                }
-
-                
-            };
+            
+        };
 
 
-            lv.setOnItemLongClickListener(new OnItemLongClickListener() {
-                // Called when the user long-clicks on someView
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+            // Called when the user long-clicks on someView
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    startActionMode(mActionModeCallback);
-                    view.setSelected(true);
-                    return true;
-                }
-            });
-        }
+                startActionMode(mActionModeCallback);
+                view.setSelected(true);
+                return true;
+            }
+        });
     }
 
 	public void ShowContactDetail(int selectedPosition){
@@ -109,8 +109,21 @@ public class ContactListActivity extends ListActivity {
 		Intent intent = new Intent(this, ContactDetailsActivity.class);
         Contact selected = (Contact)this.getListAdapter().getItem(selectedPosition);
         intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
-		startActivity(intent);
+        startActivity(intent);
 	}
+
+    private void handleEdit(int selectedPosition) {
+        Intent intent = new Intent(this, NewContactActivity.class);
+        Contact selected = (Contact)this.getListAdapter().getItem(selectedPosition);
+        intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
+        startActivity(intent);
+    }
+    
+    private void handleNew(){
+        Intent intent = new Intent(this, NewContactActivity.class);        
+        intent.putExtra("selectedContact", ContactMapper.toJsonString(new Contact("my contact")));
+        startActivity(intent);        
+    }
 
 	/* We need to provide a custom adapter in order to use a custom list item view.
 	 */
@@ -134,7 +147,6 @@ public class ContactListActivity extends ListActivity {
 			return item;
 		}
 	}
-
 
 }
 

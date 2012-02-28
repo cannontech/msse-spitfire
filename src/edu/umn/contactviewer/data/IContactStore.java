@@ -8,11 +8,9 @@ import java.util.List;
 public interface IContactStore {
 
 	List<Contact> getContacts();
-	
-	Contact getContactByName(String name);
-	
+	Contact update(Contact contact);
 	Contact saveContact(Contact contact);
+    void delete(Contact contact);
 
-    Contact getContactById(int offset);
     void Flush() throws IOException;
 }
