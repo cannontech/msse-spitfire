@@ -20,7 +20,10 @@ import edu.umn.contactviewer.data.InternalStorageContactStore;
 public class ContactListActivity extends ListActivity {
 
     private ActionMode.Callback mActionModeCallback;
-	
+	private int selectedItemIndex;
+    private IContactStore store;
+    private ContactListActivity.ContactAdapter contactAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -37,11 +40,12 @@ public class ContactListActivity extends ListActivity {
             }
         });        
         //go get a store for us to get data from
-        IContactStore store = new InternalStorageContactStore(getApplicationContext());
+        store = new InternalStorageContactStore(getApplicationContext());
 
         
         // initialize the list view
-        super.setListAdapter(new ContactAdapter(this, R.layout.list_item, store.getContacts()));
+        contactAdapter = new ContactAdapter(this, R.layout.list_item, store.getContacts());
+        super.setListAdapter(contactAdapter);
 
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
@@ -66,10 +70,12 @@ public class ContactListActivity extends ListActivity {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.delete:
-                        //TODO
+                        onDeleteContact();
+                        contactAdapter.notifyDataSetChanged();
                         return true;
                     case R.id.edit:
-                        handleEdit(1);
+                        onEditContact();
+                        contactAdapter.notifyDataSetChanged();
                         return true;
                     default:
                         return false;
@@ -99,9 +105,18 @@ public class ContactListActivity extends ListActivity {
 
                 startActionMode(mActionModeCallback);
                 view.setSelected(true);
+                selectedItemIndex = position;
                 return true;
             }
         });
+    }
+
+    private void onDeleteContact() {
+        Contact selected = (Contact)this.getListAdapter().getItem(selectedItemIndex);
+        store.delete(selected);
+
+        //        intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
+//        startActivity(intent);
     }
 
 	public void ShowContactDetail(int selectedPosition){
@@ -112,9 +127,9 @@ public class ContactListActivity extends ListActivity {
         startActivity(intent);
 	}
 
-    private void handleEdit(int selectedPosition) {
+    private void onEditContact() {
         Intent intent = new Intent(this, NewContactActivity.class);
-        Contact selected = (Contact)this.getListAdapter().getItem(selectedPosition);
+        Contact selected = (Contact)this.getListAdapter();
         intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
         startActivity(intent);
     }
