@@ -1,5 +1,6 @@
-#summary One-sentence summary of this page.
+#ToDo List for Android Contact Viewer
 
 =To Do=
 
 Danny - Integrate persistence
+Jeff - About Activity
