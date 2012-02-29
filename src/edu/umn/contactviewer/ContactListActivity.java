@@ -53,7 +53,7 @@ public class ContactListActivity extends ListActivity {
         // handle the item click events
         lv.setOnItemClickListener(new OnItemClickListener() {	        	
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShowContactDetail(position);
+                showContactDetail(position);
             }
         });
 
@@ -119,7 +119,7 @@ public class ContactListActivity extends ListActivity {
 //        startActivity(intent);
     }
 
-	public void ShowContactDetail(int selectedPosition){
+	public void showContactDetail(int selectedPosition){
 		
 		Intent intent = new Intent(this, ContactDetailsActivity.class);
         Contact selected = (Contact)this.getListAdapter().getItem(selectedPosition);
