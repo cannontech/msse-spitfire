@@ -21,6 +21,8 @@ public class NewContactActivity extends Activity {
         Button addButton = toolbar.getToolbarRightButton();
         addButton.setVisibility(View.VISIBLE);
         addButton.setText("Save");
+        bind();
+        
         addButton.setOnClickListener(new View.OnClickListener(){                        
             public void onClick(View view) {
                 onSaveClicked();
@@ -58,7 +60,27 @@ public class NewContactActivity extends Activity {
     }
 	 
 	 private void bind(){
-		//IContactStore store = new InternalStorageContactStore(getApplicationContext());
-		
+         
+         Bundle extras = super.getIntent().getExtras();
+         Contact selectedContact = ContactMapper.fromJsonString(extras.getString("selectedContact"));
+
+         TextView name = (TextView)findViewById(R.id.txtName);
+         name.setText(selectedContact.getName());
+                 
+         TextView title = (TextView)findViewById(R.id.txtTitle);
+         title.setText(selectedContact.getTitle());
+
+         TextView company = (TextView)findViewById(R.id.txtCompany);
+         company.setText(selectedContact.getCompany());         
+
+         TextView phone = (TextView)findViewById(R.id.txtPhone);
+         phone.setText(selectedContact.getPhone());         
+
+         TextView email = (TextView)findViewById(R.id.txtEmail);
+         email.setText(selectedContact.getEmail());         
+
+         TextView twitter = (TextView)findViewById(R.id.txtTwitter);
+         twitter.setText(selectedContact.getTwitterId());
+
 	 }
 }

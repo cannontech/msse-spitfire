@@ -99,20 +99,25 @@ public class InternalStorageContactStore implements IContactStore {
 	}
     
     public Contact update(Contact contact) {
-        Contact theContact = null;         
-        for (Contact aContact : _contacts){
-            if (aContact.getName().equals(aContact.getName())){
-                int idx = _contacts.indexOf(aContact);
-                _contacts.set(idx, contact);
-            }
-        }
-        return contact;
+        return saveContact(contact);
     }
 
 	
 	public Contact saveContact(Contact contact){
-		_contacts.add(contact);
+		
         try {
+            boolean exists=false;           
+            for (Contact aContact : _contacts){
+                if (contact.getName().equals(aContact.getName())){
+                    int idx = _contacts.indexOf(aContact);
+                    _contacts.set(idx, contact);
+                    exists=true;
+                    break;
+                }                
+            }
+            if (!exists){
+                _contacts.add(contact);
+            }
             Flush();
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
