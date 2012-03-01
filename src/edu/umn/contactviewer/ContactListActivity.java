@@ -72,10 +72,12 @@ public class ContactListActivity extends ListActivity {
                     case R.id.delete:
                         onDeleteContact();
                         contactAdapter.notifyDataSetChanged();
+                        mode.finish();
                         return true;
                     case R.id.edit:
                         onEditContact();
                         contactAdapter.notifyDataSetChanged();
+                        mode.finish();
                         return true;
                     default:
                         return false;
@@ -133,7 +135,7 @@ public class ContactListActivity extends ListActivity {
     
     private void handleNew(){
         Intent intent = new Intent(this, NewContactActivity.class);        
-        intent.putExtra("selectedContact", ContactMapper.toJsonString(new Contact("my contact")));
+        intent.putExtra("selectedContact", ContactMapper.toJsonString(new Contact("")));
         startActivity(intent);        
     }
 
