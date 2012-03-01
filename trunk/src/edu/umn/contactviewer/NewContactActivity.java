@@ -22,6 +22,9 @@ public class NewContactActivity extends Activity {
         addButton.setVisibility(View.VISIBLE);
         addButton.setText("Save");
         bind();
+        if (((TextView) findViewById(R.id.txtName)).getText().length() != 0)  {
+            toolbar.getToolbarTitleView().setText("Edit Contact");
+        }
         
         addButton.setOnClickListener(new View.OnClickListener(){                        
             public void onClick(View view) {
