@@ -16,6 +16,7 @@ public class HomeActivity extends Activity implements OnClickListener{
         setContentView(R.layout.main);
         
         findViewById(R.id.contacts_button).setOnClickListener(this);
+        findViewById(R.id.about_button).setOnClickListener(this);
     }
 
 	public void onClick(View v) {
@@ -23,5 +24,9 @@ public class HomeActivity extends Activity implements OnClickListener{
 			Intent intent = new Intent(this, ContactListActivity.class);
 			startActivity(intent);
 		}
+        if (v.getId() == R.id.about_button ) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+        }
 	}
 }
