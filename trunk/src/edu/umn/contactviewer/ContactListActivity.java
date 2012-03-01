@@ -114,9 +114,6 @@ public class ContactListActivity extends ListActivity {
     private void onDeleteContact() {
         Contact selected = (Contact)this.getListAdapter().getItem(selectedItemIndex);
         store.delete(selected);
-
-        //        intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
-//        startActivity(intent);
     }
 
 	public void showContactDetail(int selectedPosition){
@@ -129,7 +126,7 @@ public class ContactListActivity extends ListActivity {
 
     private void onEditContact() {
         Intent intent = new Intent(this, NewContactActivity.class);
-        Contact selected = (Contact)this.getListAdapter();
+        Contact selected = (Contact)this.getListAdapter().getItem(selectedItemIndex);
         intent.putExtra("selectedContact", ContactMapper.toJsonString(selected));
         startActivity(intent);
     }
