@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:orientation="vertical" >
-    
+
     <TextView android:id="@+id/item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24dp"
         android:layout_margin="4dp"
+        android:singleLine="true"
         android:textStyle="bold"
         android:text="Title"/>
     
@@ -20,13 +21,13 @@
         android:layout_margin="4dp"
         android:layout_alignParentBottom="true"
         android:text="MPAA Rating"/>
-    
-    <ImageView android:id="@+id/item_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_media_play" 
+
+    <ImageView android:id="@+id/item_cover"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_centerVertical="true"
+             android:src="@android:drawable/ic_media_play"
         />
     
     <TextView android:id="@+id/item_runtime"
@@ -35,7 +36,7 @@
         android:textSize="18dp"
         android:layout_margin="4dp"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/item_icon"
+        android:layout_toLeftOf="@id/item_cover"
         android:text="Run Time"/>
 
 </RelativeLayout>

@@ -2,21 +2,28 @@ package com.moviemon;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.moviemon.data.Movie;
 import com.moviemon.data.MovieMapper;
+import com.moviemon.R;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class SearchActivity extends ListActivity
@@ -60,7 +67,7 @@ public class SearchActivity extends ListActivity
             try
             {
                 client = AndroidHttpClient.newInstance("MovieMon", null);
-                HttpUriRequest request = new HttpGet(URL_BASE + params[0].replace(" ", "%20"));
+                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(params[0]));
                 HttpResponse response = client.execute(request);
                 List<Movie> movies = MovieMapper.listFromJson(new InputStreamReader(response.getEntity().getContent()));
                 client.close();
@@ -69,6 +76,7 @@ public class SearchActivity extends ListActivity
             }
             catch (IOException e)
             {
+                Log.e("HTTP", e.toString());
                 client.close();
                 return null;
             }
@@ -106,6 +114,19 @@ public class SearchActivity extends ListActivity
             ((TextView)item.findViewById(R.id.item_title)).setText(movie.getTitle());
             ((TextView)item.findViewById(R.id.item_mpaa)).setText(movie.getMPAARating());
             ((TextView)item.findViewById(R.id.item_runtime)).setText(movie.getRunTime());
+            if (movie.getRelatedImages() != null && movie.getRelatedImages().size() > 0)
+            {
+                String imgUrl = movie.getRelatedImages().get(0).getUrl();
+                try
+                {
+                    ((ImageView)item.findViewById(R.id.item_cover)).setImageDrawable(Drawable.createFromStream((InputStream) new URL(imgUrl).getContent(), "src"));
+                }
+                catch (Exception e)
+                {
+                     Log.e("IMAGE", e.toString());
+                }
+            }
+
 
             return item;
         }
