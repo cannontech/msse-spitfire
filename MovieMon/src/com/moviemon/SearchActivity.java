@@ -1,6 +1,7 @@
 package com.moviemon;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -32,6 +33,7 @@ public class SearchActivity extends ListActivity
     
     private EditText searchField;
     private Button searchButton;
+    private ProgressDialog progressDialog;
 
     private SearchActivity.MovieAdapter movieAdapter;
 
@@ -58,6 +60,11 @@ public class SearchActivity extends ListActivity
         protected void onPreExecute()
         {
             super.onPreExecute();
+            progressDialog = new ProgressDialog(SearchActivity.this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage("Searching for '" + searchField.getText().toString() + "'...");
+            progressDialog.show();
+                    
         }
         
         @Override
@@ -87,6 +94,7 @@ public class SearchActivity extends ListActivity
         {
             super.onPostExecute(result);
             updateList(result);
+            progressDialog.cancel();
         }
     }
 
