@@ -14,16 +14,17 @@ import java.util.List;
 public class ContactCacheProvider implements ICache<Contact> {
 
     private static List<Contact> _contacts = new ArrayList<Contact>();
-
     
     public void Add(Contact contact) {
         _contacts.add(contact);
     }
-
     
     public Contact Get(String key) {
+
         Contact theContact = null;
+
         for (Contact contact : _contacts){
+
             if (contact.getName()==key){
                 theContact=contact;
             }

@@ -1,18 +1,28 @@
 package edu.umn.contactviewer;
 
+import java.io.InputStreamReader;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import com.google.gson.Gson;
 import edu.umn.contactviewer.data.Contact;
 import edu.umn.contactviewer.data.ContactMapper;
 import edu.umn.contactviewer.data.IContactStore;
 import edu.umn.contactviewer.data.InternalStorageContactStore;
+import edu.umn.contactviewer.data.WebServiceContactStore;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
 
 /**
  * Displays a list of contacts.
@@ -34,18 +44,23 @@ public class ContactListActivity extends ListActivity {
         Button addButton = toolbar.getToolbarRightButton();
         addButton.setVisibility(View.VISIBLE);
         addButton.setText("Add");
+
         addButton.setOnClickListener(new View.OnClickListener() {           
             public void onClick(View view) {
                 handleNew();
             }
-        });        
-        //go get a store for us to get data from
-        store = new InternalStorageContactStore(getApplicationContext());
+        });
 
+        AsycGetContacts store = new AsycGetContacts();
+        store.execute();
+        //go get a store for us to get data from
+        //store = new InternalStorageContactStore(getApplicationContext());
+        //store = new WebServiceContactStore();
         
         // initialize the list view
-        contactAdapter = new ContactAdapter(this, R.layout.list_item, store.getContacts());
-        super.setListAdapter(contactAdapter);
+        //List<Contact> contacts = store.execute();
+//        contactAdapter = new ContactAdapter(this, R.layout.list_item, contacts);
+//        super.setListAdapter(contactAdapter);
 
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
@@ -68,20 +83,34 @@ public class ContactListActivity extends ListActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+                boolean retVal = false;
+                
                 switch (item.getItemId()) {
+                    
                     case R.id.delete:
+                    {
                         onDeleteContact();
                         contactAdapter.notifyDataSetChanged();
                         mode.finish();
-                        return true;
+                        retVal = true;
+                    }
+                    break;
+                    
                     case R.id.edit:
+                    {
                         onEditContact();
                         contactAdapter.notifyDataSetChanged();
                         mode.finish();
-                        return true;
+                        retVal = true;
+                    }
+                    break;
+                    
                     default:
                         return false;
                 }
+                
+                return retVal;
             }
 
             @Override
@@ -96,10 +125,7 @@ public class ContactListActivity extends ListActivity {
                 // Here you can make any necessary updates to the activity when
                 // the CAB is removed. By default, selected items are deselected/unchecked.
             }
-
-            
         };
-
 
         lv.setOnItemLongClickListener(new OnItemLongClickListener() {
             // Called when the user long-clicks on someView
@@ -111,6 +137,12 @@ public class ContactListActivity extends ListActivity {
                 return true;
             }
         });
+    }
+
+    private void UpdateContactList(List<Contact> contacts) {
+
+        contactAdapter = new ContactAdapter(this, R.layout.list_item, contacts);
+        super.setListAdapter(contactAdapter);
     }
 
     private void onDeleteContact() {
@@ -139,6 +171,50 @@ public class ContactListActivity extends ListActivity {
         startActivity(intent);        
     }
 
+    //
+    //this is the async call out to the web service where our contact data lives
+    //
+    class AsycGetContacts extends AsyncTask<String, Void, List<Contact>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //todo - add a progress bar in case the call is slow or times out
+        }
+
+        @Override
+        protected void onPostExecute(List<Contact> results) {
+            super.onPostExecute(results);
+            UpdateContactList(results);
+        }
+    
+        @Override
+        protected List<Contact> doInBackground(String... params) {
+
+            List<Contact> results = null;
+            AndroidHttpClient client = null;
+
+            try{
+                client = AndroidHttpClient.newInstance("Android");
+                HttpUriRequest request = new HttpGet(getString(R.string.baseUrl));
+                HttpResponse response = client.execute(request);
+
+                results = ContactMapper.ListFromJson(new InputStreamReader(response.getEntity().getContent()));
+            }
+            catch (Exception ex){
+                Log.e("",ex.getMessage());
+            }
+            finally{
+
+                if(null != client){
+                    client.close();
+                }
+            }
+            
+            return results;
+        }
+    }
+
 	/* We need to provide a custom adapter in order to use a custom list item view.
 	 */
 	public class ContactAdapter extends ArrayAdapter<Contact> {
@@ -161,7 +237,6 @@ public class ContactListActivity extends ListActivity {
 			return item;
 		}
 	}
-
 }
 
 

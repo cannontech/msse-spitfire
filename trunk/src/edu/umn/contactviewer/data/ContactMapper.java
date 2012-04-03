@@ -3,6 +3,7 @@ package edu.umn.contactviewer.data;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -25,4 +26,11 @@ public class ContactMapper {
         return contactMaker.toJson(contact);
     }
 
+    public static List<Contact> ListFromJson(InputStreamReader reader) {
+
+        Gson gson = new Gson(); 
+        JsonContactsCollection contacts = gson.fromJson(reader, JsonContactsCollection.class);
+
+        return contacts.get_contacts();
+    }
 }
