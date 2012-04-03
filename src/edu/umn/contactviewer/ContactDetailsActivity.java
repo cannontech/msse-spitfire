@@ -54,8 +54,8 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
         TextView title = (TextView)findViewById(R.id.title);
         title.setText(currentContact.getTitle());
 
-        TextView company = (TextView)findViewById(R.id.company);
-        company.setText(currentContact.getCompany());
+//        TextView company = (TextView)findViewById(R.id.company);
+//        company.setText(currentContact.getCompany());
 
         TextView phone = (TextView)findViewById(R.id.valuePhone);
         phone.setText(currentContact.getPhone());

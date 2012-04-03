@@ -42,8 +42,8 @@ public class NewContactActivity extends Activity {
         TextView title = (TextView)findViewById(R.id.txtTitle);
         contact.setTitle(title.getText().toString());
 
-        TextView company = (TextView)findViewById(R.id.txtCompany);
-        contact.setCompany(company.getText().toString());        
+//        TextView company = (TextView)findViewById(R.id.txtCompany);
+//        contact.setCompany(company.getText().toString());
          
         TextView phone = (TextView)findViewById(R.id.txtPhone);
         contact.setPhone(phone.getText().toString());
@@ -73,8 +73,8 @@ public class NewContactActivity extends Activity {
          TextView title = (TextView)findViewById(R.id.txtTitle);
          title.setText(selectedContact.getTitle());
 
-         TextView company = (TextView)findViewById(R.id.txtCompany);
-         company.setText(selectedContact.getCompany());         
+//         TextView company = (TextView)findViewById(R.id.txtCompany);
+//         company.setText(selectedContact.getCompany());
 
          TextView phone = (TextView)findViewById(R.id.txtPhone);
          phone.setText(selectedContact.getPhone());         
