@@ -9,17 +9,13 @@ import android.content.Intent;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import com.google.gson.Gson;
 import edu.umn.contactviewer.data.Contact;
 import edu.umn.contactviewer.data.ContactMapper;
 import edu.umn.contactviewer.data.IContactStore;
-import edu.umn.contactviewer.data.InternalStorageContactStore;
-import edu.umn.contactviewer.data.WebServiceContactStore;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -31,7 +27,7 @@ public class ContactListActivity extends ListActivity {
 
     private ActionMode.Callback mActionModeCallback;
 	private int selectedItemIndex;
-    private IContactStore store;
+    //private IContactStore store;
     private ContactListActivity.ContactAdapter contactAdapter;
 
     @Override
@@ -53,14 +49,6 @@ public class ContactListActivity extends ListActivity {
 
         AsycGetContacts store = new AsycGetContacts();
         store.execute();
-        //go get a store for us to get data from
-        //store = new InternalStorageContactStore(getApplicationContext());
-        //store = new WebServiceContactStore();
-        
-        // initialize the list view
-        //List<Contact> contacts = store.execute();
-//        contactAdapter = new ContactAdapter(this, R.layout.list_item, contacts);
-//        super.setListAdapter(contactAdapter);
 
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
@@ -147,7 +135,7 @@ public class ContactListActivity extends ListActivity {
 
     private void onDeleteContact() {
         Contact selected = (Contact)this.getListAdapter().getItem(selectedItemIndex);
-        store.delete(selected);
+        //store.delete(selected);
     }
 
 	public void showContactDetail(int selectedPosition){

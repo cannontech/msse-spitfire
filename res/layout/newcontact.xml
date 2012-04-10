@@ -34,14 +34,6 @@
                         android:hint="Name"/>
 
                 <EditText
-                        android:id="@+id/txtCompany"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="175dp"
-                        android:layout_weight="1"
-                        android:hint="Company"/>
-
-                <EditText
                         android:id="@+id/txtTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -64,21 +56,19 @@
                     android:id="@+id/txtEmail"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint=  "Email"
-                    />
+                    android:hint=  "Email" />
 
             <EditText
                     android:id="@+id/txtPhone"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone Number"
-                    />
+                    android:hint="Phone Number" />
+
             <EditText
                     android:id="@+id/txtTwitter"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Twitter Id"
-                    />
+                    android:hint="Twitter Id" />
         </LinearLayout>
 
     </TableRow>

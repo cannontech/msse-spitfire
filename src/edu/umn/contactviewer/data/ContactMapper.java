@@ -3,6 +3,7 @@ package edu.umn.contactviewer.data;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -19,6 +20,17 @@ public class ContactMapper {
     public static Contact fromJsonString(String contactJson){
         Gson contactMaker = new Gson();
         return (Contact) contactMaker.fromJson(contactJson, new TypeToken<Contact>(){}.getType());
+    }
+
+    //public static Contact fromJsonString(InputStreamReader reader){
+    public static ServiceMessage fromJsonString(InputStreamReader reader){
+
+        boolean retVal = false;
+
+        Gson gson = new Gson();
+        ServiceMessage msg = gson.fromJson(reader,ServiceMessage.class);
+
+        return msg;
     }
 
     public static String toJsonString(Contact contact){
