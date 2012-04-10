@@ -16,6 +16,7 @@ import edu.umn.contactviewer.data.ContactMapper;
 public class ContactDetailsActivity extends Activity implements OnClickListener {
 
     Contact currentContact;
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		
@@ -29,7 +30,6 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
         btn.setVisibility(1);
         btn.setText("Edit");
 
-
         btn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View view) {
@@ -38,7 +38,6 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
                 startActivity(intent);
             }
         });
-
     }
 
 	private void updateView() {
@@ -53,9 +52,6 @@ public class ContactDetailsActivity extends Activity implements OnClickListener 
         
         TextView title = (TextView)findViewById(R.id.title);
         title.setText(currentContact.getTitle());
-
-//        TextView company = (TextView)findViewById(R.id.company);
-//        company.setText(currentContact.getCompany());
 
         TextView phone = (TextView)findViewById(R.id.valuePhone);
         phone.setText(currentContact.getPhone());

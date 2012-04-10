@@ -9,4 +9,7 @@
     <string name="edit">Edit</string>
     <string name="add">Add</string>
     <string name="baseUrl">http://contacts.tinyapollo.com/contacts/?key=spitfire</string>
+    <string name="basePutUrl">http://contacts.tinyapollo.com/contacts/</string>
+    <string name="basePostUrl">http://contacts.tinyapollo.com/contacts</string>
+    <string name="urlKey">key=spitfire</string>
 </resources>

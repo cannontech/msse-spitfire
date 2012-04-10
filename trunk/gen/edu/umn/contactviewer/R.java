@@ -30,37 +30,35 @@ public final class R {
         public static final int window_background=0x7f020007;
     }
     public static final class id {
-        public static final int about_button=0x7f090012;
-        public static final int company=0x7f090005;
-        public static final int contacts_button=0x7f090011;
-        public static final int delete=0x7f09001d;
-        public static final int edit=0x7f09001e;
-        public static final int item_icon=0x7f09000e;
-        public static final int item_name=0x7f09000c;
-        public static final int item_phone=0x7f09000f;
-        public static final int item_title=0x7f09000d;
-        public static final int labelEmail=0x7f090008;
-        public static final int labelPhone=0x7f090006;
-        public static final int labelTwitter=0x7f09000a;
+        public static final int about_button=0x7f090011;
+        public static final int contacts_button=0x7f090010;
+        public static final int delete=0x7f09001b;
+        public static final int edit=0x7f09001c;
+        public static final int item_icon=0x7f09000d;
+        public static final int item_name=0x7f09000b;
+        public static final int item_phone=0x7f09000e;
+        public static final int item_title=0x7f09000c;
+        public static final int labelEmail=0x7f090007;
+        public static final int labelPhone=0x7f090005;
+        public static final int labelTwitter=0x7f090009;
         public static final int linearLayoutAbout=0x7f090000;
-        public static final int logo=0x7f090010;
+        public static final int logo=0x7f09000f;
         public static final int name=0x7f090003;
         public static final int test_image=0x7f090002;
         public static final int title=0x7f090004;
-        public static final int toolbar=0x7f090019;
-        public static final int toolbar_back_button=0x7f09001a;
-        public static final int toolbar_right_button=0x7f09001c;
-        public static final int toolbar_title=0x7f09001b;
+        public static final int toolbar=0x7f090017;
+        public static final int toolbar_back_button=0x7f090018;
+        public static final int toolbar_right_button=0x7f09001a;
+        public static final int toolbar_title=0x7f090019;
         public static final int txtAbout=0x7f090001;
-        public static final int txtCompany=0x7f090014;
-        public static final int txtEmail=0x7f090016;
-        public static final int txtName=0x7f090013;
-        public static final int txtPhone=0x7f090017;
-        public static final int txtTitle=0x7f090015;
-        public static final int txtTwitter=0x7f090018;
-        public static final int valueEmail=0x7f090009;
-        public static final int valuePhone=0x7f090007;
-        public static final int valueTwitter=0x7f09000b;
+        public static final int txtEmail=0x7f090014;
+        public static final int txtName=0x7f090012;
+        public static final int txtPhone=0x7f090015;
+        public static final int txtTitle=0x7f090013;
+        public static final int txtTwitter=0x7f090016;
+        public static final int valueEmail=0x7f090008;
+        public static final int valuePhone=0x7f090006;
+        public static final int valueTwitter=0x7f09000a;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -82,11 +80,14 @@ public final class R {
         public static final int add=0x7f060007;
         public static final int app_name=0x7f060001;
         public static final int back=0x7f060004;
+        public static final int basePostUrl=0x7f06000a;
+        public static final int basePutUrl=0x7f060009;
         public static final int baseUrl=0x7f060008;
         public static final int contacts=0x7f060002;
         public static final int delete=0x7f060005;
         public static final int edit=0x7f060006;
         public static final int hello_world=0x7f060000;
+        public static final int urlKey=0x7f06000b;
     }
     public static final class style {
         public static final int MainButton=0x7f070001;
