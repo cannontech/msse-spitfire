@@ -16,9 +16,10 @@ import android.widget.AdapterView.*;
 import edu.umn.contactviewer.data.Contact;
 import edu.umn.contactviewer.data.ContactMapper;
 import edu.umn.contactviewer.data.IContactStore;
+import edu.umn.contactviewer.data.ServiceMessage;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.*;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * Displays a list of contacts.
@@ -27,7 +28,6 @@ public class ContactListActivity extends ListActivity {
 
     private ActionMode.Callback mActionModeCallback;
 	private int selectedItemIndex;
-    //private IContactStore store;
     private ContactListActivity.ContactAdapter contactAdapter;
 
     @Override
@@ -135,7 +135,8 @@ public class ContactListActivity extends ListActivity {
 
     private void onDeleteContact() {
         Contact selected = (Contact)this.getListAdapter().getItem(selectedItemIndex);
-        //store.delete(selected);
+        AsycDeleteContact store = new AsycDeleteContact();
+        store.execute(selected.get_id());
     }
 
 	public void showContactDetail(int selectedPosition){
@@ -157,6 +158,12 @@ public class ContactListActivity extends ListActivity {
         Intent intent = new Intent(this, NewContactActivity.class);        
         intent.putExtra("selectedContact", ContactMapper.toJsonString(new Contact("")));
         startActivity(intent);        
+    }
+
+    public void ReturnToList() {
+
+        Intent intent = new Intent(this, ContactListActivity.class);
+        startActivity(intent);
     }
 
     //
@@ -203,8 +210,75 @@ public class ContactListActivity extends ListActivity {
         }
     }
 
-	/* We need to provide a custom adapter in order to use a custom list item view.
-	 */
+    class AsycDeleteContact extends AsyncTask<String, Void, ServiceMessage> {
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+            //todo - add a progress bar in case the call is slow or times out
+        }
+
+        @Override
+        protected void onPostExecute(ServiceMessage results) {
+
+            super.onPostExecute(results);
+
+            if(results.get_message().contains("Successfully")) {
+
+                ReturnToList();
+            }
+        }
+
+        @Override
+        protected ServiceMessage doInBackground(String... params) {
+
+            ServiceMessage results = null;
+            AndroidHttpClient client = null;
+            HttpUriRequest request = null;
+
+            try{
+                client = AndroidHttpClient.newInstance("Android");
+
+                //get the id of the contact to delete, if it exists
+                if("" != params[0]) {
+
+                    //do a delete
+                    request = new HttpDelete(buildDelete(params[0]));
+                }
+
+                HttpResponse response = client.execute(request);
+                results = ContactMapper.fromJsonString(new InputStreamReader(response.getEntity().getContent()));
+            }
+            catch (Exception ex){
+                Log.e("", ex.getMessage());
+            }
+            finally{
+
+                if(null != client){
+                    client.close();
+                }
+            }
+
+            return results;
+        }
+
+        private String buildDelete(String contactId) {
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(getString(R.string.basePutUrl));
+            sb.append(contactId);
+            sb.append("?");
+            sb.append(getString(R.string.urlKey));
+
+            return sb.toString();
+        }
+    }
+
+    /*
+        We need to provide a custom adapter in order to use a custom list item view.
+	*/
 	public class ContactAdapter extends ArrayAdapter<Contact> {
 	
 		public ContactAdapter(Context context, int textViewResourceId, List<Contact> objects) {
