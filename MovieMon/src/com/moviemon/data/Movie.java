@@ -10,7 +10,7 @@ public class Movie{
    	private List<Availability> availability;
 
     @SerializedName("Cast")
-   	private List<Cast> cast;
+   	private List<String> cast;
 
     @SerializedName("MPAARating")
    	private String mPAARating;
@@ -22,13 +22,16 @@ public class Movie{
    	private String providers;
 
     @SerializedName("RelatedClips")
-   	private String relatedClips;
+   	private List<String> relatedClips;
 
     @SerializedName("RelatedImages")
    	private List<RelatedImages> relatedImages;
 
+    @SerializedName("Rating")
+    private Rating rating;
+
     @SerializedName("Reviews")
-   	private String reviews;
+   	private List<Review> reviews;
 
     @SerializedName("RunTime")
    	private String runTime;
@@ -50,10 +53,10 @@ public class Movie{
 	public void setAvailability(List<Availability> availability){
 		this.availability = availability;
 	}
- 	public List<Cast> getCast(){
+ 	public List<String> getCast(){
 		return this.cast;
 	}
-	public void setCast(List<Cast> cast){
+	public void setCast(List<String> cast){
 		this.cast = cast;
 	}
  	public String getMPAARating(){
@@ -74,10 +77,16 @@ public class Movie{
 	public void setProviders(String providers){
 		this.providers = providers;
 	}
- 	public String getRelatedClips(){
+    public Rating getRating(){
+        return this.rating;
+    }
+    public void setRating(Rating rating){
+        this.rating = rating;
+    }
+ 	public List<String> getRelatedClips(){
 		return this.relatedClips;
 	}
-	public void setRelatedClips(String relatedClips){
+	public void setRelatedClips(List<String> relatedClips){
 		this.relatedClips = relatedClips;
 	}
  	public List<RelatedImages> getRelatedImages(){
@@ -86,10 +95,10 @@ public class Movie{
 	public void setRelatedImages(List<RelatedImages> relatedImages){
 		this.relatedImages = relatedImages;
 	}
- 	public String getReviews(){
+ 	public List<Review> getReviews(){
 		return this.reviews;
 	}
-	public void setReviews(String reviews){
+	public void setReviews(List<Review> reviews){
 		this.reviews = reviews;
 	}
  	public String getRunTime(){
