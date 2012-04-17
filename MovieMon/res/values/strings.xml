@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MovieMon</string>
+    <string name="title_search">Search</string>
+    <string name="queue">Queue</string>
+    <string name="browse">Browse</string>
+    <string name="watched">Watched</string>
 </resources>

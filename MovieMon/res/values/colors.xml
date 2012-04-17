@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_start">#000000</color>
+    <color name="background_stop">#000000</color>
+    <color name="foreground_start">#13a638</color>
+    <color name="foreground_stop">#084a19</color>
+    <color name="border">#000</color>
+    <color name="header_text_color">#FFF</color>
+</resources>

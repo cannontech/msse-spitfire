@@ -1,4 +1,4 @@
-package com.moviemon;
+package com.spitfire.moviemon;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.moviemon.data.Movie;
-import com.moviemon.data.MovieMapper;
-import com.moviemon.R;
+
+import com.spitfire.moviemon.R;
+import com.spitfire.moviemon.data.Movie;
+import com.spitfire.moviemon.data.MovieMapper;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -43,7 +45,7 @@ public class SearchActivity extends ListActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-
+        
         searchField = (EditText) findViewById(R.id.search_field);
         searchButton = (Button) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {

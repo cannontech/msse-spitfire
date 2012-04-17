@@ -1,4 +1,4 @@
-package com.moviemon.data;
+package com.spitfire.moviemon.data;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
