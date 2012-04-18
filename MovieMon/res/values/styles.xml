@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MonTheme" parent="android:Theme.Light.NoTitleBar">
-	    <item name="android:windowBackground">@drawable/window_background</item>
-	</style>
     <style name="MainButton" parent="@android:style/Widget">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:layout_margin">16dp</item>
         <item name="android:shadowColor">#000</item>
