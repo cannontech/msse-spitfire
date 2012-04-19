@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
+import android.content.Intent;
+import android.widget.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -23,11 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
@@ -55,6 +52,14 @@ public class SearchActivity extends ListActivity
             @Override
             public void onClick(View view) {
                 new SearchTask().execute(searchField.getText().toString());
+            }
+        });
+
+        ListView lv = super.getListView();
+        lv.setTextFilterEnabled(true);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showMovieDetail(position);
             }
         });
     }
@@ -101,6 +106,14 @@ public class SearchActivity extends ListActivity
             updateList(result);
             progressDialog.cancel();
         }
+    }
+
+    private void showMovieDetail(int position)
+    {
+        Movie selected = (Movie)this.getListAdapter().getItem(position);
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
+        startActivity(intent);
     }
 
     private void updateList(List<Movie> movies)
