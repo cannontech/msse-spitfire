@@ -31,7 +31,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 		}
         if (v.getId() == R.id.browse_button ) {
-            Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(this, BrowseActivity.class);
             startActivity(intent);
         }
         if (v.getId() == R.id.queue_button ) {
