@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
 
@@ -41,5 +42,14 @@ public class MovieDetailsActivity extends Activity {
         {
             Log.e("IMAGE", e.toString());
         }
+
+        TextView name = (TextView)findViewById(R.id.critic_rating);
+        name.setText(movie.getRating().getCriticsScore() + "%");
+
+        TextView mpaa = (TextView)findViewById(R.id.mpaa);
+        mpaa.setText(movie.getMPAARating());
+
+        TextView runtime = (TextView)findViewById(R.id.runtime);
+        runtime.setText(movie.getRunTime());
     }
 }
