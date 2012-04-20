@@ -31,6 +31,8 @@
                   android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".BrowseActivity"
                   android:theme="@android:style/Theme.Black.NoTitleBar" />
+                <activity android:name=".MovieListActivity"
+                  android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 
 </manifest>

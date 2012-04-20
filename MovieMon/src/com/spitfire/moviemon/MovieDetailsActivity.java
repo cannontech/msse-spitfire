@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
+import com.spitfire.moviemon.data.Rating;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -44,7 +45,8 @@ public class MovieDetailsActivity extends Activity {
         }
 
         TextView name = (TextView)findViewById(R.id.critic_rating);
-        name.setText(movie.getRating().getCriticsScore() + "%");
+        Rating rating = movie.getRating();
+        name.setText(rating != null ? movie.getRating().getCriticsScore() + "%" : null);
 
         TextView mpaa = (TextView)findViewById(R.id.mpaa);
         mpaa.setText(movie.getMPAARating());
