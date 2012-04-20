@@ -18,7 +18,7 @@ public class HomeActivity extends Activity implements OnClickListener{
         setContentView(R.layout.main);
         
         HeaderConfig headerConfig = new HeaderConfig(this, "MovieMon");
-        
+
         findViewById(R.id.title_search_button).setOnClickListener(this);
         findViewById(R.id.browse_button).setOnClickListener(this);
         findViewById(R.id.queue_button).setOnClickListener(this);
@@ -26,21 +26,36 @@ public class HomeActivity extends Activity implements OnClickListener{
     }
 
 	public void onClick(View v) {
-		if (v.getId() == R.id.title_search_button) {
-			Intent intent = new Intent(this, SearchActivity.class);
-			startActivity(intent);
-		}
-        if (v.getId() == R.id.browse_button ) {
-            Intent intent = new Intent(this, BrowseActivity.class);
-            startActivity(intent);
-        }
-        if (v.getId() == R.id.queue_button ) {
-            Intent intent = new Intent(this, SearchActivity.class);
-            startActivity(intent);
-        }
-        if (v.getId() == R.id.watched_button ) {
-            Intent intent = new Intent(this, SearchActivity.class);
-            startActivity(intent);
+
+        switch (v.getId()) {
+
+            case R.id.title_search_button: {
+
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.browse_button:{
+
+                Intent intent = new Intent(this, BrowseActivity.class);
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.queue_button:{
+
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.watched_button:{
+
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+            }
+            break;
         }
 	}
 }

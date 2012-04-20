@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:stretchColumns="1" >
 
-    <include
-        android:layout_weight="0"
-        layout="@layout/header" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="horizontal">
 
-    <TableRow>
+        <include
+                android:layout_weight="0"
+                layout="@layout/header"
+                android:layout_width="0dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:gravity="center"
+                  android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/title_search_button"
-                style="@style/MainButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_search" />
+                android:orientation="horizontal">
 
             <Button
-                android:id="@+id/browse_button"
-                style="@style/MainButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/browse" />
+                    android:id="@+id/title_search_button"
+                    style="@style/MainButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="@string/title_search" />
+
+            <Button
+                    android:id="@+id/browse_button"
+                    style="@style/MainButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="@string/browse" />
 
         </LinearLayout>
-    </TableRow>
-
-    <TableRow>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/queue_button"
-                style="@style/MainButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/queue" />
+                android:orientation="horizontal">
 
             <Button
-                android:id="@+id/watched_button"
-                style="@style/MainButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/watched" />
+                    android:id="@+id/queue_button"
+                    style="@style/MainButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/queue" />
+
+            <Button
+                    android:id="@+id/watched_button"
+                    style="@style/MainButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/watched" />
+
         </LinearLayout>
-    </TableRow>
 
-</TableLayout>
+    </LinearLayout>
+
+</LinearLayout>

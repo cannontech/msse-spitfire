@@ -18,12 +18,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
-                android:hint="Title"
-                />
+                android:hint="Title"/>
+
         <Button android:id="@+id/search_button"
                     android:text="Search"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-         />
+                    android:layout_height="wrap_content"/>
 
 </LinearLayout>

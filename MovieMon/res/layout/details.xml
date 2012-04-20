@@ -25,7 +25,7 @@
 	            
 	            <TextView 
 	                android:id="@+id/critic_rating"
-	                android:textSize="18dp"
+	                android:textSize="16dp"
 	            	android:layout_width="wrap_content"
 	              	android:layout_height="wrap_content"
 	              	android:minWidth="175dp"
@@ -62,7 +62,7 @@
                 android:textSize="18dp"
                 android:id="@+id/labelPhone"
               	android:padding="3dip"
-              	android:text="Phone" />
+              	android:text="Summary" />
             
             <TextView 
                 android:id="@+id/valuePhone"
@@ -77,7 +77,7 @@
                 android:textSize="18dp"
                 android:id="@+id/labelEmail"
               	android:padding="3dip"
-              	android:text="Email" />
+              	android:text="Cast" />
             
             <TextView 
                 android:id="@+id/valueEmail"
@@ -92,7 +92,7 @@
                 android:textSize="18dp"
                 android:id="@+id/labelTwitter"
               	android:padding="3dip"
-              	android:text="Twitter ID" />
+              	android:text="Rotten Tomatoes" />
             
             <TextView 
                 android:id="@+id/valueTwitter"
