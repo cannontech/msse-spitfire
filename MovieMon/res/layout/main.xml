@@ -1,71 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:gravity="center"
-              android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
     <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:orientation="horizontal">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="horizontal" >
 
         <include
-                android:layout_weight="0"
-                layout="@layout/header"
-                android:layout_width="0dp"/>
-
+            android:layout_width="0dp"
+            android:layout_weight="0"
+            layout="@layout/header" />
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="fill_parent"
-                  android:layout_height="fill_parent"
-                  android:gravity="center"
-                  android:orientation="vertical">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <LinearLayout
-                android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/title_search_button"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#000000"
+                android:src="@drawable/search" />
 
             <Button
-                    android:id="@+id/title_search_button"
-                    style="@style/MainButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="@string/title_search" />
-
-            <Button
-                    android:id="@+id/browse_button"
-                    style="@style/MainButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="@string/browse" />
-
+                android:id="@+id/browse_button"
+                style="@style/MainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/browse" />
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/queue_button"
+                style="@style/MainButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:text="@string/queue" />
 
-            <Button
-                    android:id="@+id/queue_button"
-                    style="@style/MainButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/queue" />
-
-            <Button
-                    android:id="@+id/watched_button"
-                    style="@style/MainButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/watched" />
-
+            <ImageButton
+                android:id="@+id/watched_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="#000000"
+                android:src="@drawable/check" />
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>
