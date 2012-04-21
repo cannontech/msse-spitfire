@@ -1,11 +1,15 @@
 package com.spitfire.moviemon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
 import com.spitfire.moviemon.data.Rating;
@@ -20,14 +24,34 @@ import java.net.URL;
  * Time: 8:18 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MovieDetailsActivity extends Activity {
+public class MovieDetailsActivity extends Activity implements OnClickListener {
 
     private Movie movie;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.details);
+
+        findViewById(R.id.play_trailer).setOnClickListener(this);
+
         updateView();
+    }
+
+    public void onClick(View v) {
+        Bundle extras = super.getIntent().getExtras();
+        movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
+        String trailerUrl = movie.getRelatedClips().get(1);
+
+        switch (v.getId()) {
+
+            case R.id.play_trailer: {
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
+
+                startActivity(intent);
+            }
+        }
     }
 
     private void updateView() {
