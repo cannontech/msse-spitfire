@@ -10,54 +10,79 @@
     
     <TableRow>
         <include layout="@layout/details_top"
-                 android:layout_weight="0"/>
-
-        	        
+                 android:layout_width="wrap_content"/>
     </TableRow>
 
    	<TableRow>
-            
-            <TextView 
-                android:textSize="18dp"
-                android:id="@+id/labelPhone"
-              	android:padding="3dip"
-              	android:text="Summary" />
-            
-            <TextView 
-                android:id="@+id/valuePhone"
-              	android:padding="3dip"
-              	android:text="612.555.1234" />
-
+           <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:orientation="vertical" >
+           <TextView
+                   android:textSize="18dp"
+                   android:id="@+id/summary_label"
+                   android:padding="3dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0"
+                   android:text="Summary" />="Summary" />
+           <TextView
+                   android:id="@+id/summary"
+                   android:padding="3dp"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:textStyle="italic"
+                   android:singleLine="false"
+                   android:text="Summary" />
+           </LinearLayout>
 	</TableRow>
 
     <TableRow>
-
-            <TextView 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical" >
+            <TextView
                 android:textSize="18dp"
-                android:id="@+id/labelEmail"
-              	android:padding="3dip"
+                android:id="@+id/cast_label"
+              	android:padding="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
               	android:text="Cast" />
-            
-            <TextView 
-                android:id="@+id/valueEmail"
-              	android:padding="3dip"
-              	android:text="mreynolds@vwcc.com" />
 
+            <TextView
+                android:id="@+id/cast"
+              	android:padding="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:singleLine="false"
+              	android:text="cast" />
+        </LinearLayout>
     </TableRow>
 
     <TableRow>
-          
-            <TextView 
-                android:textSize="18dp"
-                android:id="@+id/labelTwitter"
-              	android:padding="3dip"
-              	android:text="Rotten Tomatoes" />
-            
-            <TextView 
-                android:id="@+id/valueTwitter"
-              	android:padding="3dip"
-              	android:text="mrey_on_twitter" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical" >
 
+            <TextView
+                android:textSize="18dp"
+                android:id="@+id/rotten_tomatoes_label"
+                android:padding="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+              	android:text="Rotten Tomatoes" />
+
+            <TextView
+                android:id="@+id/critic_rating"
+                android:padding="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+              	android:text="rating" />
+        </LinearLayout>
     </TableRow>
     
 </TableLayout>    

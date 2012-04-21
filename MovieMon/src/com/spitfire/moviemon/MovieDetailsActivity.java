@@ -53,5 +53,11 @@ public class MovieDetailsActivity extends Activity {
 
         TextView runtime = (TextView)findViewById(R.id.runtime);
         runtime.setText(movie.getRunTime());
+
+        TextView summary = (TextView)findViewById(R.id.summary);
+        summary.setText(movie.getSummary());
+
+        TextView cast = (TextView)findViewById(R.id.cast);
+        cast.setText(movie.getCast().toString());
     }
 }
