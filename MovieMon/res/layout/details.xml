@@ -22,6 +22,7 @@
                    android:textSize="18dp"
                    android:id="@+id/summary_label"
                    android:padding="3dp"
+                   style="@style/HeaderTitle"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_weight="0"
@@ -46,6 +47,7 @@
                 android:textSize="18dp"
                 android:id="@+id/cast_label"
               	android:padding="3dp"
+                style="@style/HeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
               	android:text="Cast" />
@@ -71,6 +73,7 @@
                 android:textSize="18dp"
                 android:id="@+id/rotten_tomatoes_label"
                 android:padding="3dp"
+                style="@style/HeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
               	android:text="Rotten Tomatoes" />

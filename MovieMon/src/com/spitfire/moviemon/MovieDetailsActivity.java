@@ -58,6 +58,6 @@ public class MovieDetailsActivity extends Activity {
         summary.setText(movie.getSummary());
 
         TextView cast = (TextView)findViewById(R.id.cast);
-        cast.setText(movie.getCast().toString());
+        cast.setText(movie.getCast().toString().replace("[","").replace("]",""));
     }
 }
