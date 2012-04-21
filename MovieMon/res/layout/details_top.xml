@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:stretchColumns="1">
+
+    <TableRow>
+
+        <ImageView
+                android:id="@+id/item_cover"
+                android:layout_margin="5dp"
+                android:src="@drawable/logo"
+                android:layout_width="128dp"
+                android:layout_height="128dp" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      android:layout_margin="5dp"
+                      android:orientation="vertical" >
+
+            <TextView
+                    android:id="@+id/released_date"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="175dp"
+                    android:layout_weight="1"
+                    android:text="Released: Date" />
+
+            <TextView
+                    android:id="@+id/runtime"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="175dp"
+                    android:layout_weight="1"
+                    android:text="Run Time: Minutes" />
+
+            <TextView
+                    android:id="@+id/mpaa"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="175dp"
+                    android:layout_weight="1"
+                    android:text="Rated: MPAA" />
+
+            <TextView
+                    android:id="@+id/formats"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="175dp"
+                    android:layout_weight="1"
+                    android:text="Formats: BluRay, DVD" />
+
+            <Button android:id="@+id/play_trailer"
+                    android:text="Play Trailer"
+                    android:textSize="12dp"
+                    android:layout_width="128dp"
+                    android:layout_height="32dp"
+                    />
+
+        </LinearLayout>
+    </TableRow>
+</TableLayout>
