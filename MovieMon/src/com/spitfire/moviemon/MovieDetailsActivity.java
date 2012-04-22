@@ -34,6 +34,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         super.setContentView(R.layout.details);
 
         findViewById(R.id.play_trailer).setOnClickListener(this);
+        findViewById(R.id.read_reviews).setOnClickListener(this);
 
         updateView();
     }
@@ -50,6 +51,11 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
 
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
+                    startActivity(intent);
+                }
+                case R.id.read_reviews: {
+                    Intent intent = new Intent(this, ReviewListActivity.class);
+                    intent.putExtra("selectedMovie", MovieMapper.toJson(movie));
                     startActivity(intent);
                 }
             }
@@ -90,6 +96,12 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         if (movie.getRelatedClips() == null || movie.getRelatedClips().isEmpty())
         {
             trailerBtn.setVisibility(View.INVISIBLE);
+        }
+
+        Button reviewBtn = (Button)findViewById(R.id.read_reviews);
+        if (movie.getReviews() == null || movie.getReviews().isEmpty())
+        {
+            reviewBtn.setVisibility(View.INVISIBLE);
         }
     }
 }
