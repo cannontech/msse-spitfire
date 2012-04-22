@@ -41,15 +41,16 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         Bundle extras = super.getIntent().getExtras();
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
         String trailerUrl = movie.getRelatedClips().get(1);
+        if (trailerUrl != null)
+        {
+            switch (v.getId()) {
 
-        switch (v.getId()) {
+                case R.id.play_trailer: {
 
-            case R.id.play_trailer: {
-
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
-
-                startActivity(intent);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
+                    startActivity(intent);
+                }
             }
         }
     }
@@ -70,7 +71,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
 
         TextView name = (TextView)findViewById(R.id.critic_rating);
         Rating rating = movie.getRating();
-        name.setText(rating != null ? movie.getRating().getCriticsScore() + "%" : null);
+        name.setText(rating != null && rating.getCriticsScore() != null && !rating.getCriticsScore().startsWith("-") ? rating.getCriticsScore() + "%" : "N/A");
 
         TextView mpaa = (TextView)findViewById(R.id.mpaa);
         mpaa.setText(movie.getMPAARating());
