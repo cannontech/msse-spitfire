@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
@@ -40,7 +41,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         Bundle extras = super.getIntent().getExtras();
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
-        String trailerUrl = movie.getRelatedClips().get(1);
+        String trailerUrl = movie.getRelatedClips().get(0);
         if (trailerUrl != null)
         {
             switch (v.getId()) {
@@ -84,5 +85,11 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
 
         TextView cast = (TextView)findViewById(R.id.cast);
         cast.setText(movie.getCast().toString().replace("[","").replace("]",""));
+
+        Button trailerBtn = (Button)findViewById(R.id.play_trailer);
+        if (movie.getRelatedClips() == null || movie.getRelatedClips().isEmpty())
+        {
+            trailerBtn.setVisibility(View.INVISIBLE);
+        }
     }
 }
