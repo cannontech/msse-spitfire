@@ -52,11 +52,13 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
                     startActivity(intent);
+                    break;
                 }
                 case R.id.read_reviews: {
                     Intent intent = new Intent(this, ReviewListActivity.class);
                     intent.putExtra("selectedMovie", MovieMapper.toJson(movie));
                     startActivity(intent);
+                    break;
                 }
             }
         }
