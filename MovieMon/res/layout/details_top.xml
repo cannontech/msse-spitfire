@@ -101,7 +101,7 @@
         </LinearLayout>
             <Button android:id="@+id/play_trailer"
                     android:text="Play Trailer"
-                    android:textSize="12dp"
+                    style="@style/ActivityButton"
                     android:layout_width="128dp"
                     android:layout_height="32dp"
                     android:layout_alignParentBottom="true"

@@ -106,14 +106,14 @@
 
                 <Button android:id="@+id/read_reviews"
                         android:text="Read Reviews"
-                        android:textSize="12dp"
+                        style="@style/ActivityButton"
                         android:layout_width="128dp"
                         android:layout_height="32dp"
                         android:layout_alignParentBottom="true"
                         />
                 <Button android:id="@+id/check_providers"
                         android:text="Check Providers"
-                        android:textSize="12dp"
+                        style="@style/ActivityButton"
                         android:layout_width="128dp"
                         android:layout_height="32dp"
                         android:layout_alignParentBottom="true"

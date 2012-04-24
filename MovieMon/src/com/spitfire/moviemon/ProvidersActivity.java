@@ -55,21 +55,26 @@ public class ProvidersActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         Bundle extras = super.getIntent().getExtras();
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
-        String trailerUrl = movie.getRelatedClips().get(0);
-        if (trailerUrl != null)
         {
             switch (v.getId()) {
 
                 case R.id.play_trailer: {
-
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
-                    startActivity(intent);
-                    break;
+                    if (movie.getRelatedClips() != null && !movie.getRelatedClips().isEmpty())
+                    {
+                        String trailerUrl = movie.getRelatedClips().get(0);
+                        if (trailerUrl != null)
+                        {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
+                            startActivity(intent);
+                            break;
+                        }
+                    }
                 }
             }
         }
     }
+
 
     private void updateView() {
         Bundle extras = super.getIntent().getExtras();
@@ -109,6 +114,12 @@ public class ProvidersActivity extends Activity implements OnClickListener {
 
         RadioButton redbox = (RadioButton)findViewById(R.id.radio_redbox);
         redbox.setText(redboxAvailability);
+
+        Button trailerBtn = (Button)findViewById(R.id.play_trailer);
+        if (movie.getRelatedClips() == null || movie.getRelatedClips().isEmpty())
+        {
+            trailerBtn.setVisibility(View.INVISIBLE);
+        }
     }
    
 

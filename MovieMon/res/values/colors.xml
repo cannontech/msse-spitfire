@@ -6,4 +6,5 @@
     <color name="foreground_stop">#084a19</color>
     <color name="border">#000</color>
     <color name="header_text_color">#FFF</color>
+    <color name="activity_button_background">#FFFF7B</color>
 </resources>
