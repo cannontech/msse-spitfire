@@ -42,23 +42,26 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         Bundle extras = super.getIntent().getExtras();
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
-        String trailerUrl = movie.getRelatedClips().get(0);
-        if (trailerUrl != null)
+        if (movie.getRelatedClips() != null && !movie.getRelatedClips().isEmpty())
         {
-            switch (v.getId()) {
+            String trailerUrl = movie.getRelatedClips().get(0);
+            if (trailerUrl != null)
+            {
+                switch (v.getId()) {
 
-                case R.id.play_trailer: {
+                    case R.id.play_trailer: {
 
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
-                    startActivity(intent);
-                    break;
-                }
-                case R.id.read_reviews: {
-                    Intent intent = new Intent(this, ReviewListActivity.class);
-                    intent.putExtra("selectedMovie", MovieMapper.toJson(movie));
-                    startActivity(intent);
-                    break;
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.read_reviews: {
+                        Intent intent = new Intent(this, ReviewListActivity.class);
+                        intent.putExtra("selectedMovie", MovieMapper.toJson(movie));
+                        startActivity(intent);
+                        break;
+                    }
                 }
             }
         }
