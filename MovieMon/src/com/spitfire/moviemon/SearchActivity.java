@@ -55,6 +55,14 @@ public class SearchActivity extends ListActivity
             }
         });
 
+        Button logoBtn = (Button) findViewById(R.id.logo);
+        logoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToHome();
+            }
+        });
+
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,6 +114,14 @@ public class SearchActivity extends ListActivity
             updateList(result);
             progressDialog.cancel();
         }
+    }
+
+    private void goToHome()
+    {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
+        this.finish();
     }
 
     private void showMovieDetail(int position)

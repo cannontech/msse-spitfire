@@ -1,6 +1,8 @@
 package com.spitfire.moviemon;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +18,16 @@ public class HeaderConfig {
 		_activity = activity;
         if (hasHeader()) {
         	getHeaderTitle().setText(title);
+            getHeaderLogo().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(_activity, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    _activity.startActivity(intent);
+                    _activity.finish();
+                }
+            });
+
         } else {
         	throw new RuntimeException("Trying to initialize the header in a layout that doesn't have one!");
         }
@@ -29,8 +41,8 @@ public class HeaderConfig {
 	
     /** Gets a reference to the logo on the header.
      */
-    public ImageView getHeaderLogo() {
-    	return (ImageView)_activity.findViewById(R.id.logo);
+    public Button getHeaderLogo() {
+    	return (Button)_activity.findViewById(R.id.logo);
     }
 	
     /** Gets a reference to the title on the header.
