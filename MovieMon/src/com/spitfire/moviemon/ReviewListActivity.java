@@ -26,8 +26,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
-public class ReviewListActivity extends ListActivity
-{
+public class ReviewListActivity extends ListActivity {
+    private Movie movie;
 
     private ProgressDialog progressDialog;
     private ReviewListActivity.ReviewAdapter reviewAdapter;
@@ -43,7 +43,7 @@ public class ReviewListActivity extends ListActivity
 
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
-        Movie movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
+        movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
         HeaderConfig headerConfig = new HeaderConfig(this, movie.getTitle() + " Reviews");
         updateList(movie.getReviews());
 

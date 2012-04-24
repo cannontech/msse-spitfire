@@ -35,6 +35,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
 
         findViewById(R.id.play_trailer).setOnClickListener(this);
         findViewById(R.id.read_reviews).setOnClickListener(this);
+        findViewById(R.id.check_providers).setOnClickListener(this);
 
         updateView();
     }
@@ -62,9 +63,16 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                         startActivity(intent);
                         break;
                     }
+                    case R.id.check_providers: {
+                        Intent intent = new Intent(this, ProvidersActivity.class);
+                        intent.putExtra("selectedMovie", MovieMapper.toJson(movie));
+                        startActivity(intent);
+                        break;
+                    }
+
                 }
             }
-        }
+         }
     }
 
     private void updateView() {

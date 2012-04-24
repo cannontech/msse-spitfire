@@ -111,6 +111,13 @@
                         android:layout_height="32dp"
                         android:layout_alignParentBottom="true"
                         />
+                <Button android:id="@+id/check_providers"
+                        android:text="Check Providers"
+                        android:textSize="12dp"
+                        android:layout_width="128dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentBottom="true"
+                        />
             </LinearLayout>
 
 

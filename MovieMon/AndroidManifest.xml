@@ -36,6 +36,8 @@
                   android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ReviewListActivity"
                   android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".ProvidersActivity"
+                  android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 
 </manifest>
