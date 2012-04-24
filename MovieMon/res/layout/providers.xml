@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+
+    <include layout="@layout/header"
+             android:layout_weight="0"/>
+    
+    <TableRow>
+        <include layout="@layout/details_top"
+                 android:layout_width="wrap_content"/>
+    </TableRow>
+
+   	<TableRow>
+           <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:orientation="vertical" >
+           <TextView
+                   android:textSize="18dp"
+                   android:id="@+id/availability_label"
+                   android:padding="3dp"
+                   style="@style/HeaderTitle"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0"
+                   android:text="Availability" />
+               <RadioGroup
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+                   <RadioButton android:id="@+id/radio_netflix"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/netflix"
+                                android:text="Netflix"/>
+                   <RadioButton android:id="@+id/radio_redbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/redbox"
+                                android:text="RedBox"/>
+               </RadioGroup>
+           </LinearLayout>
+	</TableRow>
+
+
+
+    
+</TableLayout>    
