@@ -98,6 +98,12 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         TextView mpaa = (TextView)findViewById(R.id.mpaa);
         mpaa.setText(movie.getMPAARating());
 
+        TextView dateReleased = (TextView)findViewById(R.id.released_date);
+        if (movie.getAvailability() != null && movie.getAvailability().get(0) != null &&movie.getAvailability().get(0).getAvailableFrom() != null)
+        {
+            dateReleased.setText(movie.getAvailability().get(0).getAvailableFrom());
+        }
+
         TextView runtime = (TextView)findViewById(R.id.runtime);
         runtime.setText(movie.getRunTime());
 

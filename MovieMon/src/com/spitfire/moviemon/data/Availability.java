@@ -2,8 +2,13 @@ package com.spitfire.moviemon.data;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Availability{
 
+    @SerializedName("Addresses")
+    private List<String> addresses;
+    
     @SerializedName("AvailableFrom")
    	private String availableFrom;
 
@@ -16,7 +21,15 @@ public class Availability{
     @SerializedName("ProviderName")
    	private String providerName;
 
- 	public String getAvailableFrom(){
+    public List<String> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<String> addresses) {
+        this.addresses = addresses;
+    }
+
+    public String getAvailableFrom(){
 		return this.availableFrom;
 	}
 	public void setAvailableFrom(String availableFrom){

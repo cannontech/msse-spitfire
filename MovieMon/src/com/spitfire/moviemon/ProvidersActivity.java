@@ -100,6 +100,12 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         TextView runtime = (TextView)findViewById(R.id.runtime);
         runtime.setText(movie.getRunTime());
 
+        TextView dateReleased = (TextView)findViewById(R.id.released_date);
+        if (movie.getAvailability() != null && movie.getAvailability().get(0) != null &&movie.getAvailability().get(0).getAvailableFrom() != null)
+        {
+            dateReleased.setText(movie.getAvailability().get(0).getAvailableFrom());
+        }
+
         String netflixAvailability = "";
         String redboxAvailability = "";
         Boolean netflixHas = false;
@@ -117,13 +123,14 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         redbox.setOnClickListener(radioListener);
 
 
-        
+        String addr = "";
         for (Availability avail : movie.getAvailability() ) {
               if (avail.getProviderName().equals("Netflix")) {
                   netflixHas = true;
               }
-              if (avail.getProviderName().equals("Redbox")) {
+              if (avail.getProviderName().equals("RedBox")) {
                   redboxHas = true;
+                  addr =  avail.getAddresses().get(0);
               }
         }
         if (netflixHas)
@@ -136,7 +143,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         }
         if (redboxHas)
         {
-            redboxAvailability = "Available Now";
+            redboxAvailability = "Available Now " + addr;
         }
         else
         {
@@ -175,7 +182,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         {
             for (Availability avail : movie.getAvailability() ) {
 
-                if (avail.getProviderName().equals("Redbox")) {
+                if (avail.getProviderName().equals("RedBox")) {
                     RadioButton button1 = new RadioButton(this);
                     button1.setText(avail.getDeliveryFormat());
                     formatGroup.addView(button1);
