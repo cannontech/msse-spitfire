@@ -1,7 +1,5 @@
 package com.spitfire.moviemon;
 
-import com.spitfire.moviemon.HeaderConfig;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,14 +43,14 @@ public class HomeActivity extends Activity implements OnClickListener{
 
             case R.id.queue_button:{
 
-                Intent intent = new Intent(this, SearchActivity.class);
+                Intent intent = new Intent(this, QueueActivity.class);
                 startActivity(intent);
             }
             break;
 
             case R.id.watched_button:{
 
-                Intent intent = new Intent(this, SearchActivity.class);
+                Intent intent = new Intent(this, QueueActivity.class);
                 startActivity(intent);
             }
             break;

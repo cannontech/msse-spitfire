@@ -11,6 +11,9 @@ public class Movie{
 
     @SerializedName("Cast")
    	private List<String> cast;
+    
+    @SerializedName("Key")
+    private Key key;
 
     @SerializedName("MPAARating")
    	private String mPAARating;
@@ -59,7 +62,13 @@ public class Movie{
 	public void setCast(List<String> cast){
 		this.cast = cast;
 	}
- 	public String getMPAARating(){
+    public Key getKey() {
+        return key;
+    }
+    public void setKey(Key key) {
+        this.key = key;
+    }
+    public String getMPAARating(){
 		return this.mPAARating;
 	}
 	public void setMPAARating(String mPAARating){

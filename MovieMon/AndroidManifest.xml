@@ -38,6 +38,8 @@
                   android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".ProvidersActivity"
                   android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".QueueActivity"
+                  android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 
 </manifest>

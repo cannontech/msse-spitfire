@@ -1,21 +1,11 @@
 package com.spitfire.moviemon;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.List;
-
-import android.net.Uri;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,21 +13,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
+import android.widget.*;
+import com.spitfire.moviemon.data.MemberMapper;
 import com.spitfire.moviemon.data.Movie;
+import com.spitfire.moviemon.data.Member;
 import com.spitfire.moviemon.data.MovieMapper;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
 
-public class MovieListActivity extends ListActivity
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.List;
+
+public class QueueActivity extends ListActivity
 {
-    private String URL_BASE = "http://movieman.apphb.com/api/Movies/";
+    private String URL_BASE = "http://movieman.apphb.com/api/Members/";
+    private String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
 
     private ProgressDialog progressDialog;
-    private MovieListActivity.MovieAdapter movieAdapter;
+    private QueueActivity.MovieAdapter movieAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -46,10 +43,9 @@ public class MovieListActivity extends ListActivity
         setContentView(R.layout.list);
         
         Bundle extras = super.getIntent().getExtras();
-        HeaderConfig headerConfig = new HeaderConfig(this, extras.getString("screenTitle"));
-        String url = extras.getString("url");
+        HeaderConfig headerConfig = new HeaderConfig(this, "My Queue");
                
-        new GenreTask().execute(url);
+        new QueueTask().execute();
       
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
@@ -61,31 +57,31 @@ public class MovieListActivity extends ListActivity
         
     }
     
-    private class GenreTask extends AsyncTask<String, Void, List<Movie>>
+    private class QueueTask extends AsyncTask<String, Void, Member>
     {
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(MovieListActivity.this);
+            progressDialog = new ProgressDialog(QueueActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Searching by category");
+            progressDialog.setMessage("Loading Queue...");
             progressDialog.show();
                     
         }
         
         @Override
-        protected List<Movie> doInBackground(String... params)
+        protected Member doInBackground(String... params)
         {
             AndroidHttpClient client = null;
             try
             {
                 client = AndroidHttpClient.newInstance("MovieMon", null);
-                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(params[0]));
+                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
                 HttpResponse response = client.execute(request);
-                List<Movie> movies = MovieMapper.listFromJson(new InputStreamReader(response.getEntity().getContent()));
+                Member member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
                 client.close();
-                return movies;
+                return member;
 
             }
             catch (IOException e)
@@ -97,10 +93,10 @@ public class MovieListActivity extends ListActivity
         }
         
         @Override
-        protected void onPostExecute(List<Movie> result)
+        protected void onPostExecute(Member result)
         {
             super.onPostExecute(result);
-            updateList(result);
+            updateList(result.getMovieQueue());
             progressDialog.cancel();
         }
     }
@@ -149,8 +145,6 @@ public class MovieListActivity extends ListActivity
                      Log.e("IMAGE", e.toString());
                 }
             }
-
-
             return item;
         }
     }
