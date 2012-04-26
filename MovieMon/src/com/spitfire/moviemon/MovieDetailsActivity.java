@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import com.spitfire.moviemon.data.Availability;
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
 import com.spitfire.moviemon.data.Rating;
@@ -102,6 +103,22 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
 
         TextView summary = (TextView)findViewById(R.id.summary);
         summary.setText(movie.getSummary());
+        
+        TextView formats = (TextView)findViewById(R.id.formats);
+        String format = "";
+        boolean first = true;
+        for (Availability avail : movie.getAvailability() ) {
+            if (!format.contains(avail.getDeliveryFormat()))
+            {
+                if (!first)
+                {
+                    format = format + ", ";
+                }
+                format = format + avail.getDeliveryFormat();
+                first = false;
+            }
+        }
+        formats.setText(format);
 
         TextView cast = (TextView)findViewById(R.id.cast);
         cast.setText(movie.getCast().toString().replace("[","").replace("]",""));
