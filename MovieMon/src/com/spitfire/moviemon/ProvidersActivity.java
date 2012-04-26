@@ -7,10 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.*;
 import android.view.View.OnClickListener;
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
@@ -85,41 +82,84 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         Boolean netflixHas = false;
         Boolean redboxHas = false;
 
-        
-        for (Availability avail : movie.getAvailability() ) {
-                  if (avail.getProviderName().equals("Netflix")) {
-                      netflixHas = true;
-                      netflixAvailability = netflixAvailability + " " + avail.getDeliveryFormat();
-                  }
-                  if (avail.getProviderName().equals("Redbox")) {
-                      redboxHas = true;
-                      redboxAvailability = redboxAvailability + " " + avail.getDeliveryFormat();
-                  }
-               }
-             if (netflixHas) {
-                 netflixAvailability = "Available Now" + netflixAvailability;
-             }
-             if (!netflixHas) {
-                 netflixAvailability = "Not Available";
-             }
-             if (redboxHas) {
-                 redboxAvailability = "Available Now" + redboxAvailability;
-             }
-             if (!redboxHas) {
-                 redboxAvailability = "Not Available";
-             }
+        OnClickListener radioListener = new OnClickListener() {
+            public void onClick(View v) {
+                onRadioButtonClick(v);
+            }
+        };
         
         RadioButton netflix = (RadioButton)findViewById(R.id.radio_netflix);
-        netflix.setText(netflixAvailability);
-
+        netflix.setOnClickListener(radioListener);
         RadioButton redbox = (RadioButton)findViewById(R.id.radio_redbox);
+        redbox.setOnClickListener(radioListener);
+
+
+        
+        for (Availability avail : movie.getAvailability() ) {
+              if (avail.getProviderName().equals("Netflix")) {
+                  netflixHas = true;
+              }
+              if (avail.getProviderName().equals("Redbox")) {
+                  redboxHas = true;
+              }
+        }
+        if (netflixHas)
+        {
+            netflixAvailability = "Available Now";
+        }
+        else
+        {
+            netflixAvailability = "Not Available";
+        }
+        if (redboxHas)
+        {
+            redboxAvailability = "Available Now";
+        }
+        else
+        {
+            redboxAvailability = "Not Available";
+        }
+        
         redbox.setText(redboxAvailability);
+        netflix.setText(netflixAvailability);
+        
 
         Button trailerBtn = (Button)findViewById(R.id.play_trailer);
         if (movie.getRelatedClips() == null || movie.getRelatedClips().isEmpty())
         {
             trailerBtn.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void onRadioButtonClick(View v) {
+        RadioButton button = (RadioButton) v;
+        RadioGroup formatGroup = (RadioGroup)findViewById(R.id.group_format);
+        formatGroup.removeAllViews();
+        TextView formatLabel = (TextView)findViewById(R.id.format_label);
+        formatLabel.setVisibility(View.VISIBLE);
+        formatGroup.setVisibility(View.VISIBLE);
+        if (button.getId() == R.id.radio_netflix)
+        {
+            for (Availability avail : movie.getAvailability() ) {
+                if (avail.getProviderName().equals("Netflix")) {
+                    RadioButton button1 = new RadioButton(this);
+                    button1.setText(avail.getDeliveryFormat());
+                    formatGroup.addView(button1);
+                }
+            }
+        }
+        else if (button.getId() == R.id.radio_redbox)
+        {
+            for (Availability avail : movie.getAvailability() ) {
+
+                if (avail.getProviderName().equals("Redbox")) {
+                    RadioButton button1 = new RadioButton(this);
+                    button1.setText(avail.getDeliveryFormat());
+                    formatGroup.addView(button1);
+                }
+            }
+        }
+
     }
    
 

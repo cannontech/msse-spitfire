@@ -28,6 +28,7 @@
                    android:layout_weight="0"
                    android:text="Availability" />
                <RadioGroup
+                       android:id="@+id/group_provider"
                        android:layout_width="fill_parent"
                        android:layout_height="wrap_content"
                        android:orientation="vertical">
@@ -41,6 +42,23 @@
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/redbox"
                                 android:text="RedBox"/>
+               </RadioGroup>
+               <TextView
+                       android:textSize="18dp"
+                       android:id="@+id/format_label"
+                       android:padding="3dp"
+                       style="@style/HeaderTitle"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="0"
+                       android:visibility="invisible"
+                       android:text="Format" />
+               <RadioGroup
+                       android:id="@+id/group_format"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:visibility="invisible"
+                       android:orientation="horizontal">
                </RadioGroup>
            </LinearLayout>
 	</TableRow>
