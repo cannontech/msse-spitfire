@@ -77,6 +77,29 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         Bundle extras = super.getIntent().getExtras();
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
         HeaderConfig headerConfig = new HeaderConfig(this, movie.getTitle());
+
+        TextView formats = (TextView)findViewById(R.id.formats);
+        String format = "";
+        boolean first = true;
+        for (Availability avail : movie.getAvailability() ) {
+            if (!format.contains(avail.getDeliveryFormat()))
+            {
+                if (!first)
+                {
+                    format = format + ", ";
+                }
+                format = format + avail.getDeliveryFormat();
+                first = false;
+            }
+        }
+        formats.setText(format);
+
+        TextView mpaa = (TextView)findViewById(R.id.mpaa);
+        mpaa.setText(movie.getMPAARating());
+
+        TextView runtime = (TextView)findViewById(R.id.runtime);
+        runtime.setText(movie.getRunTime());
+
         String netflixAvailability = "";
         String redboxAvailability = "";
         Boolean netflixHas = false;
