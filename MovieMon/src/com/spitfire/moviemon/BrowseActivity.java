@@ -30,13 +30,16 @@ public class BrowseActivity extends ListActivity
         HeaderConfig headerConfig = new HeaderConfig(this, "Browse");
 
         // dummy data
-        ArrayList<String> categories = new ArrayList<String>();
-        categories.add("New Releases By Date");
-        categories.add("Top 100");
-        categories.add("Action & Adventure");
+        ArrayList<String> genres = new ArrayList<String>();
+        genres.add("Action & Adventure");
+        genres.add("Comedy");
+        genres.add("Drama");
+        genres.add("Horror");
+        genres.add("Romance");
+        genres.add("Sci-Fi & Fantasy");
                   
         // initialize the category list view
-        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories));
+        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, genres));
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
         
@@ -45,9 +48,7 @@ public class BrowseActivity extends ListActivity
         lv.setOnItemClickListener(new OnItemClickListener() {
         	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(context, MovieListActivity.class);
-                intent.putExtra("screenTitle", ((TextView)view).getText().toString());
-             // url needs to change - test only !!!
-                intent.putExtra("url", URL_BASE + "Godfather");
+                intent.putExtra("genre", ((TextView) view).getText());
                 startActivity(intent);
 				}
 			});

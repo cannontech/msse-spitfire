@@ -34,7 +34,7 @@ import com.spitfire.moviemon.data.MovieMapper;
 
 public class MovieListActivity extends ListActivity
 {
-    private String URL_BASE = "http://movieman.apphb.com/api/Movies/";
+    private String URL_BASE = "http://movieman.apphb.com/api/Movies/genre/";
 
     private ProgressDialog progressDialog;
     private MovieListActivity.MovieAdapter movieAdapter;
@@ -46,10 +46,10 @@ public class MovieListActivity extends ListActivity
         setContentView(R.layout.list);
         
         Bundle extras = super.getIntent().getExtras();
-        HeaderConfig headerConfig = new HeaderConfig(this, extras.getString("screenTitle"));
-        String url = extras.getString("url");
-               
-        new GenreTask().execute(url);
+        String genre = extras.getString("genre");
+        HeaderConfig headerConfig = new HeaderConfig(this, genre);
+
+        new GenreTask().execute(genre);
       
         ListView lv = super.getListView();
         lv.setTextFilterEnabled(true);
@@ -69,7 +69,7 @@ public class MovieListActivity extends ListActivity
             super.onPreExecute();
             progressDialog = new ProgressDialog(MovieListActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Searching by category");
+            progressDialog.setMessage("Loading...");
             progressDialog.show();
                     
         }
