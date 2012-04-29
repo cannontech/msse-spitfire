@@ -38,6 +38,7 @@ public class QueueActivity extends ListActivity
     private ActionMode.Callback mActionModeCallback;
     private ProgressDialog progressDialog;
     private QueueActivity.MovieAdapter movieAdapter;
+    private int selectedItemIndex;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -65,7 +66,8 @@ public class QueueActivity extends ListActivity
 
                 startActionMode(mActionModeCallback);
                 view.setSelected(true);
-                //selectedItemIndex = position;
+                selectedItemIndex = position;
+
                 return true;
             }
         });
@@ -126,6 +128,8 @@ public class QueueActivity extends ListActivity
     private void showRating() {
 
         Intent intent = new Intent(this, UserRatingActivity.class);
+        Movie selected = movieAdapter.getItem(selectedItemIndex);
+        intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
         startActivity(intent);
     }
 
@@ -154,6 +158,7 @@ public class QueueActivity extends ListActivity
         
         @Override
         protected Member doInBackground(String... params) {
+
             AndroidHttpClient client = null;
 
             try
@@ -162,14 +167,18 @@ public class QueueActivity extends ListActivity
                 HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
                 HttpResponse response = client.execute(request);
                 Member member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
-                client.close();
+
                 return member;
             }
             catch (IOException e)
             {
                 Log.e("HTTP", e.toString());
-                client.close();
+
                 return null;
+            }
+            finally {
+
+                client.close();
             }
         }
         

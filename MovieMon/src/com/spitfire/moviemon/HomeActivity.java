@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 /** The home screen of the application.
  *
  */
-public class HomeActivity extends Activity implements OnClickListener{
+public class HomeActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
