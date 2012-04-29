@@ -3,8 +3,10 @@ package com.spitfire.moviemon;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 
 /** The home screen of the application.
  *
@@ -12,6 +14,7 @@ import android.view.View.OnClickListener;
 public class HomeActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
@@ -42,7 +45,9 @@ public class HomeActivity extends Activity implements OnClickListener{
             break;
 
             case R.id.queue_button:{
-
+                //add long tap and if activated, go to a 'ratings' activity
+                //http://developer.android.com/resources/tutorials/views/hello-formstuff.html#RatingBar
+                //else
                 Intent intent = new Intent(this, QueueActivity.class);
                 startActivity(intent);
             }
