@@ -31,6 +31,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         super.setContentView(R.layout.providers);
 
         findViewById(R.id.play_trailer).setOnClickListener(this);
+        findViewById(R.id.add_to_queue).setOnClickListener(this);
 
         Bundle extras = super.getIntent().getExtras();
 
@@ -67,6 +68,10 @@ public class ProvidersActivity extends Activity implements OnClickListener {
                             break;
                         }
                     }
+                }
+                case R.id.add_to_queue: {
+
+
                 }
             }
         }
@@ -172,6 +177,8 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         {
             for (Availability avail : movie.getAvailability() ) {
                 if (avail.getProviderName().equals("Netflix")) {
+                    Button trailerBtn = (Button)findViewById(R.id.add_to_queue);
+                    trailerBtn.setText("Add to Queue");
                     RadioButton button1 = new RadioButton(this);
                     button1.setText(avail.getDeliveryFormat());
                     formatGroup.addView(button1);
@@ -183,6 +190,8 @@ public class ProvidersActivity extends Activity implements OnClickListener {
             for (Availability avail : movie.getAvailability() ) {
 
                 if (avail.getProviderName().equals("RedBox")) {
+                    Button trailerBtn = (Button)findViewById(R.id.add_to_queue);
+                    trailerBtn.setText("Reserve");
                     RadioButton button1 = new RadioButton(this);
                     button1.setText(avail.getDeliveryFormat());
                     formatGroup.addView(button1);

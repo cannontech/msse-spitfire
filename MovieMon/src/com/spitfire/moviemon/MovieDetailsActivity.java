@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import com.spitfire.moviemon.data.Availability;
-import com.spitfire.moviemon.data.Movie;
-import com.spitfire.moviemon.data.MovieMapper;
-import com.spitfire.moviemon.data.Rating;
+import com.spitfire.moviemon.data.*;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.security.PrivateKey;
 import java.util.Date;
 
 /**
@@ -30,6 +28,7 @@ import java.util.Date;
 public class MovieDetailsActivity extends Activity implements OnClickListener {
 
     private Movie movie;
+    private Member member;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +37,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         findViewById(R.id.play_trailer).setOnClickListener(this);
         findViewById(R.id.read_reviews).setOnClickListener(this);
         findViewById(R.id.check_providers).setOnClickListener(this);
+        findViewById(R.id.add_to_queue).setOnClickListener(this);
 
         updateView();
     }
@@ -109,8 +109,11 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
             movie.getAvailability().get(0) != null &&
             movie.getAvailability().get(0).getAvailableFrom() != null)
         {
-            //String date = movie.getAvailability().get(0).getAvailableFrom();
-            //Date d = new Date(Integer.parseInt(date.substring(6)));
+/*            String date = movie.getAvailability().get(0).getAvailableFrom();
+            date = date.substring(6,18);
+            Long longDate = Long.valueOf(date);
+            Date d = new Date(longDate);
+            dateReleased.setText(d.getDate());*/
             dateReleased.setText(movie.getAvailability().get(0).getAvailableFrom());
         }
 

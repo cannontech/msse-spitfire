@@ -79,7 +79,10 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:orientation="vertical" >
-
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal" >
             <TextView
                 android:textSize="18dp"
                 android:id="@+id/rotten_tomatoes_label"
@@ -88,40 +91,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
               	android:text="Rotten Tomatoes" />
+            <TextView
+                    android:id="@+id/critic_rating"
+                    android:padding="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="rating" />
+                
+                <Button android:id="@+id/read_reviews"
+                        android:text="Read Reviews"
+                        style="@style/ActivityButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_alignParentBottom="true"
+                        />
 
-
+            </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:orientation="horizontal" >
 
-                <TextView
-                        android:id="@+id/critic_rating"
-                        android:padding="3dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="italic"
-                        android:text="rating" />
-
-                <Button android:id="@+id/read_reviews"
-                        android:text="Read Reviews"
+                <Button android:id="@+id/add_to_queue"
+                        android:text="Add to Queue"
                         style="@style/ActivityButton"
                         android:layout_width="128dp"
                         android:layout_height="32dp"
-                        android:layout_alignParentBottom="true"
                         />
                 <Button android:id="@+id/check_providers"
                         android:text="Check Providers"
                         style="@style/ActivityButton"
                         android:layout_width="128dp"
                         android:layout_height="32dp"
-                        android:layout_alignParentBottom="true"
                         />
             </LinearLayout>
-
-
-
         </LinearLayout>
     </TableRow>
 
