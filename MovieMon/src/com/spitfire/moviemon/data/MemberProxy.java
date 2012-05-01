@@ -90,6 +90,7 @@ public class MemberProxy {
         for (Movie movie:movies){
             if (movie.getTitle().equals(title)){
                 movieToRate=movie;
+                break;
             }
         }
         if (movieToRate!=null){
