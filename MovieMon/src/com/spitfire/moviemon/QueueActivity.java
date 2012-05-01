@@ -228,13 +228,21 @@ public class QueueActivity extends ListActivity
         public View getView(int position, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = getLayoutInflater();
-            View item = inflater.inflate(R.layout.list_item, parent, false);
             Movie movie = getItem(position);
+            View item = inflater.inflate(R.layout.list_item, parent, false);
+            if (watched) {
+                item = inflater.inflate(R.layout.watched_item, parent, false);
+                if (movie.getKey() != null) {
+                    ((TextView)item.findViewById(R.id.item_rating)).setText(movie.getKey().getRating() + "/5");
+                    ((TextView)item.findViewById(R.id.item_comment)).setText(movie.getKey().getComment());
+                }
+            }
+            else {
+                ((TextView)item.findViewById(R.id.item_mpaa)).setText(movie.getMPAARating());
+                ((TextView)item.findViewById(R.id.item_runtime)).setText(movie.getRunTime());
+            }
 
             ((TextView)item.findViewById(R.id.item_title)).setText(movie.getTitle());
-            ((TextView)item.findViewById(R.id.item_mpaa)).setText(movie.getMPAARating());
-            ((TextView)item.findViewById(R.id.item_runtime)).setText(movie.getRunTime());
-
             if (movie.getRelatedImages() != null && movie.getRelatedImages().size() > 0)
             {
                 String imgUrl = movie.getRelatedImages().get(0).getUrl();
