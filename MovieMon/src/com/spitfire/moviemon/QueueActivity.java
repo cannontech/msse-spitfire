@@ -132,7 +132,7 @@ public class QueueActivity extends ListActivity
 
         Intent intent = new Intent(this, UserRatingActivity.class);
 
-        intent.putExtra("member", MemberMapper.toJson(_member));
+        //intent.putExtra("member", MemberMapper.toJson(_member));
 
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
@@ -171,9 +171,10 @@ public class QueueActivity extends ListActivity
         
         @Override
         protected Member doInBackground(String... params) {
+
             MemberProxy proxy = new MemberProxy();
-            try
-            {
+
+            try {
                 return proxy.getDefaultMember();
             }
             finally {
@@ -183,26 +184,24 @@ public class QueueActivity extends ListActivity
         
         @Override
         protected void onPostExecute(Member result) {
+
             super.onPostExecute(result);
             ArrayList<Movie> movieList = new ArrayList<Movie>();
-            for (Movie movie : result.getMovieQueue())
-            {
-                if (watched)
-                {
-                    if (movie.getKey().getWasWatched())
-                    {
+
+            for (Movie movie : result.getMovieQueue()) {
+
+                if (watched) {
+                    if (movie.getKey().getWasWatched()) {
                         movieList.add(movie);
                     }  
                 }
-                else
-                {
-                    if (!movie.getKey().getWasWatched())
-                    {
+                else {
+                    if (!movie.getKey().getWasWatched()) {
                         movieList.add(movie);
                     }
                 }
-
             }
+
             updateList(movieList);
             updateMember(result);
             progressDialog.cancel();
