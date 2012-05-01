@@ -49,6 +49,7 @@ public class HomeActivity extends Activity implements OnClickListener {
                 //http://developer.android.com/resources/tutorials/views/hello-formstuff.html#RatingBar
                 //else
                 Intent intent = new Intent(this, QueueActivity.class);
+                intent.putExtra("watched", "true");
                 startActivity(intent);
             }
             break;
@@ -56,6 +57,7 @@ public class HomeActivity extends Activity implements OnClickListener {
             case R.id.watched_button:{
 
                 Intent intent = new Intent(this, QueueActivity.class);
+                intent.putExtra("watched", "true");
                 startActivity(intent);
             }
             break;

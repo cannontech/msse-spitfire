@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QueueActivity extends ListActivity
@@ -39,15 +40,21 @@ public class QueueActivity extends ListActivity
     private ProgressDialog progressDialog;
     private QueueActivity.MovieAdapter movieAdapter;
     private int selectedItemIndex;
+    private boolean watched;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);      
         setContentView(R.layout.list);
-        
         Bundle extras = super.getIntent().getExtras();
-        HeaderConfig headerConfig = new HeaderConfig(this, "My Queue");
+        watched = extras.getString("watched") != null && extras.getString("watched").equals("true");
+        String title = "My Queue";
+        if (watched)
+        {
+            title = "Watched Movies";
+        }
+        HeaderConfig headerConfig = new HeaderConfig(this, title);
                
         new QueueTask().execute();
       
@@ -185,7 +192,26 @@ public class QueueActivity extends ListActivity
         @Override
         protected void onPostExecute(Member result) {
             super.onPostExecute(result);
-            updateList(result.getMovieQueue());
+            ArrayList<Movie> movieList = new ArrayList<Movie>();
+            for (Movie movie : result.getMovieQueue())
+            {
+                if (watched)
+                {
+                    if (movie.getKey().getWasWatched())
+                    {
+                        movieList.add(movie);
+                    }  
+                }
+                else
+                {
+                    if (!movie.getKey().getWasWatched())
+                    {
+                        movieList.add(movie);
+                    }
+                }
+
+            }
+            updateList(movieList);
             progressDialog.cancel();
         }
     }
