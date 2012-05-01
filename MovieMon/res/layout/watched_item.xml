@@ -33,14 +33,14 @@
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:orientation="horizontal" >
-        <TextView android:id="@+id/item_rating"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="18dp"
-                  android:textStyle="italic"
-                  android:layout_margin="4dp"
-                  android:layout_alignParentBottom="true"
-                  android:text="5/5"/>
+            <RatingBar
+                    android:id="@+id/item_rating"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    android:rating="2.0" />
         </LinearLayout>
     </LinearLayout >
 </LinearLayout >

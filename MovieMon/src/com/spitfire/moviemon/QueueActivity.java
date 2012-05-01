@@ -233,7 +233,7 @@ public class QueueActivity extends ListActivity
             if (watched) {
                 item = inflater.inflate(R.layout.watched_item, parent, false);
                 if (movie.getKey() != null) {
-                    ((TextView)item.findViewById(R.id.item_rating)).setText(movie.getKey().getRating() + "/5");
+                    ((RatingBar)item.findViewById(R.id.item_rating)).setRating(movie.getKey().getRating());
                     ((TextView)item.findViewById(R.id.item_comment)).setText(movie.getKey().getComment());
                 }
             }
