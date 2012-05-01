@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +13,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 import com.spitfire.moviemon.data.*;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.PrivateKey;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +37,6 @@ import java.util.Date;
 public class MovieDetailsActivity extends Activity implements OnClickListener {
 
     private Movie movie;
-    private Member member;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +84,13 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                 intent.putExtra("selectedMovie", MovieMapper.toJson(movie));
                 startActivity(intent);
                 break;
+            }
+
+            case R.id.add_to_queue: {
+                AddToQueueTask task = new AddToQueueTask();
+                task.execute(new String[] { extras.getString("selectedMovie")} );
+                Toast.makeText(getApplicationContext(),
+                        "Added to Queue", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -155,6 +170,43 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         if (movie.getReviews() == null || movie.getReviews().isEmpty())
         {
             reviewBtn.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private class AddToQueueTask extends AsyncTask<String, Void, String> {
+
+        private MemberProxy memberProxy = new MemberProxy();
+
+        @Override
+        protected void onPreExecute()  {
+            super.onPreExecute();
+//            progressDialog = new ProgressDialog(QueueActivity.this);
+//            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progressDialog.setMessage("Loading Queue...");
+//            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... newMovies) {
+            movie = MovieMapper.movieFromJson(newMovies[0]);
+            try {
+                memberProxy.addToQueue(movie);
+            }
+            catch (Exception e)
+            {
+                Log.e("HTTP", e.toString());
+            }
+            finally {
+
+            }
+            return "AddedToQueue" ;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+//            updateList(result.getMovieQueue());
+//            progressDialog.cancel();
         }
     }
 }
