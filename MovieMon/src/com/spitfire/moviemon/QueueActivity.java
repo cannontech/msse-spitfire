@@ -31,8 +31,6 @@ import java.util.List;
 
 public class QueueActivity extends ListActivity
 {
-    private String URL_BASE = "http://movieman.apphb.com/api/Members/";
-    private String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
     private ActionMode.Callback mActionModeCallback;
     private ProgressDialog progressDialog;
     private QueueActivity.MovieAdapter movieAdapter;

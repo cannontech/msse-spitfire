@@ -83,14 +83,20 @@ public class MemberProxy {
 
     public void markAsWatched(Movie movie){}
 
-    public void rateMovie(Movie movie, String comment, int rating){
+    public void rateMovie(String title, String comment, int rating){
         Member m = getDefaultMember();
         List<Movie> movies = m.getMovieQueue();
-        int idx = movies.indexOf(movie);
-        Movie movieToRate = movies.get(idx);
-        movieToRate.getKey().setRating(rating);
-        movieToRate.getKey().setComment(comment);
-        putMember(m);
+        Movie movieToRate = null;
+        for (Movie movie:movies){
+            if (movie.getTitle().equals(title)){
+                movieToRate=movie;
+            }
+        }
+        if (movieToRate!=null){
+            movieToRate.getKey().setRating(rating);
+            movieToRate.getKey().setComment(comment);
+            putMember(m);
+        }
     }
 
     private void putMember(Member member){
