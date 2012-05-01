@@ -1,6 +1,9 @@
 package com.spitfire.moviemon.data;
 
+import android.text.method.DateTimeKeyListener;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,6 +31,9 @@ public class Key {
 
     @SerializedName("wasWatched")
     private Boolean wasWatched;
+
+    @SerializedName("WatchedDateTime")
+    private Date watchedDateTime;
 
     public String getComment() {
         return comment;
@@ -76,4 +82,13 @@ public class Key {
     public void setWasWatched(Boolean wasWatched) {
         this.wasWatched = wasWatched;
     }
+
+    public Date getWatchedDateTime() {
+        return watchedDateTime;
+    }
+
+    public void setWatchedDateTime(Date watchedDateTime) {
+        this.watchedDateTime = watchedDateTime;
+    }
 }
+

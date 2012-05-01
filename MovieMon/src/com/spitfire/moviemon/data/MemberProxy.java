@@ -14,6 +14,7 @@ import org.apache.http.entity.ByteArrayEntity;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,14 +25,16 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class MemberProxy {
+    // private final String URL_BASE = "http://10.0.2.2/MovieMon/api/Members";
     private final String URL_BASE = "http://movieman.apphb.com/api/Members/";
     private final String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
 
     AndroidHttpClient client = null;
+    Member member = null;
 
     public Member getDefaultMember(){
         //cache this guy and only refresh it after we've made changes to it.
-        Member member = null;
+
         try
         {
             client = GetClient();
@@ -39,15 +42,12 @@ public class MemberProxy {
             HttpResponse response = client.execute(request);
             member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             Log.e("HTTP", e.toString());
         }
         finally {
-            if (client!=null){
-                client.close();
-                client=null;
-            }
+            close();
         }
 
         return member;
@@ -97,14 +97,10 @@ public class MemberProxy {
             movieToRate.getKey().setRating(rating);
             movieToRate.getKey().setComment(comment);
             movieToRate.getKey().setWasWatched(true);
+            movieToRate.getKey().setWatchedDateTime(new Date());
             putMember(m);
         }
     }
-
-//    private Movie getMovieByTitle(String title) {
-//
-//
-//    }
 
     private void putMember(Member member){
 

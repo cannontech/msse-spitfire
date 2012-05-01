@@ -82,9 +82,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
 
         @Override
         protected Member doInBackground(String... params) {
-
             MemberProxy proxy = new MemberProxy();
-
             try {
                 proxy.rateMovie(_movie.getTitle(), "this movie was ok", _movie.getKey().getRating());
             }
