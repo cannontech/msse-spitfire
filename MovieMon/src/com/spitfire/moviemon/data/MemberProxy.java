@@ -95,6 +95,7 @@ public class MemberProxy {
         if (movieToRate!=null){
             movieToRate.getKey().setRating(rating);
             movieToRate.getKey().setComment(comment);
+            movieToRate.getKey().setWasWatched(true);
             putMember(m);
         }
     }
