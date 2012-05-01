@@ -101,6 +101,11 @@ public class MemberProxy {
         }
     }
 
+//    private Movie getMovieByTitle(String title) {
+//
+//
+//    }
+
     private void putMember(Member member){
 
         try
@@ -123,6 +128,5 @@ public class MemberProxy {
                 client=null;
             }
         }
-
     }
 }

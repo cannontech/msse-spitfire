@@ -87,18 +87,97 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
 //            progressDialog.show();
         }
 
+//        @Override
+//        protected Member doInBackground(String... params) {
+//
+//            AndroidHttpClient client = null;
+//            Member member = null;
+//
+//            try {
+//                client = AndroidHttpClient.newInstance("MovieMon", null);
+//                String mem = MemberMapper.toJson(_member);
+//                //String url = URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID) + "/" + mem;
+//                HttpUriRequest request = new HttpPut(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID) + "/" + mem);
+//                request.setHeader("Content-Type", "application/json");
+//                //request.
+//                //request.setEntity(MemberMapper.toJson(_member));
+//                HttpResponse response = client.execute(request);
+//                member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
+//            }
+//            catch (IOException e) {
+//                Log.e("HTTP", e.toString());
+//            }
+//            catch (Exception ex) {
+//                Log.e("General", ex.toString());
+//            }
+//            finally {
+//                if(null != client) {
+//                    client.close();
+//                }
+//            }
+
+//            return member;
+//        }
+
+//        @Override
+//        protected Member doInBackground(String... params) {
+//
+//            AndroidHttpClient client = null;
+//            Member member = null;
+//
+//            try {
+//                client = AndroidHttpClient.newInstance("MovieMon", null);
+//                HttpClient request = new DefaultHttpClient();
+//                //HttpPut put = new HttpPut(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
+//                HttpPut put = new HttpPut(URL_BASE);
+//                //put.setEntity(MemberMapper.toJson(_member).);
+//                String mem = MemberMapper.toJson(_member);
+//                put.setEntity(new ByteArrayEntity(mem.getBytes()));
+//                HttpResponse response = client.execute(put);
+//                member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
+//            }
+//            catch (IOException e) {
+//                Log.e("HTTP", e.toString());
+//            }
+//            catch (Exception ex) {
+//                Log.e("General", ex.toString());
+//            }
+//            finally {
+//                if(null != client) {
+//                    client.close();
+//                }
+//            }
+//
+//            return member;
+//        }
 
         @Override
         protected Member doInBackground(String... params) {
 
-            MemberProxy proxy = new MemberProxy();
+            AndroidHttpClient client = null;
             Member member = null;
+            MemberProxy proxy = new MemberProxy();
 
             try {
-                member =proxy.getDefaultMember();
+
+                List<Movie> queue = proxy.getDefaultMember().getMovieQueue();
+
+                for(Movie m : queue ) {
+
+                    if(m.getTitle() == m.getTitle()) {
+
+                        proxy.rateMovie(m, "this movie was ok", 4);
+                        proxy.markAsWatched(m);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                Log.e("General", ex.toString());
             }
             finally {
-                proxy.close();
+                if(null != client) {
+                    client.close();
+                }
             }
 
             return member;
