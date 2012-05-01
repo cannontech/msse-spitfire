@@ -8,16 +8,22 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class MemberMapper {
-    public static Member memberFromJson(InputStreamReader reader)
-    {
+
+    public static Member memberFromJson(InputStreamReader reader) {
         Gson memberMaker = new Gson();
+
         return (Member) memberMaker.fromJson(reader, new TypeToken<Member>(){}.getType());
     }
 
-
-    public static String toJson(Member member)
-    {
+    public static Member memberFromJson(String json) {
         Gson memberMaker = new Gson();
+
+        return (Member) memberMaker.fromJson(json, new TypeToken<Member>(){}.getType());
+    }
+
+    public static String toJson(Member member) {
+        Gson memberMaker = new Gson();
+
         return memberMaker.toJson(member);
     }
 }

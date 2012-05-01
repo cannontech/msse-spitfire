@@ -1,7 +1,6 @@
 package com.spitfire.moviemon;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -16,11 +15,17 @@ import com.spitfire.moviemon.data.MemberMapper;
 import com.spitfire.moviemon.data.Movie;
 import com.spitfire.moviemon.data.MovieMapper;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,30 +39,33 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
     private final String URL_BASE = "http://movieman.apphb.com/api/Members/";
     private final String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
 
-    RatingBar ratingbar;
-    Button okButton;
-    Movie movie;
+    private RatingBar _ratingbar;
+    private Button _okButton;
+    private Movie _movie;
+    private Member _member;
 
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_rating);
 
-        ratingbar = (RatingBar)findViewById(R.id.ratingbar);
-        ratingbar.setOnRatingBarChangeListener(this);
+        _ratingbar = (RatingBar)findViewById(R.id.ratingbar);
+        _ratingbar.setOnRatingBarChangeListener(this);
 
-        okButton = (Button)findViewById(R.id.ok_button);
-        okButton.setOnClickListener(this);
+        _okButton = (Button)findViewById(R.id.ok_button);
+        _okButton.setOnClickListener(this);
     }
 
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
         Bundle extras = super.getIntent().getExtras();
-        movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
+        _movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
+        _member = MemberMapper.memberFromJson(extras.getString("member"));
 
         Toast.makeText(UserRatingActivity.this, "New Rating: " + rating, Toast.LENGTH_SHORT).show();
 
-        movie.getKey().setRating((int)rating);
+        _movie.getKey().setRating((int)rating);
+        _member.getMovieQueue().add(_movie);
     }
 
     public void onClick(View v) {
@@ -82,26 +90,65 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
 //            progressDialog.show();
         }
 
+//        @Override
+//        protected Member doInBackground(String... params) {
+//
+//            AndroidHttpClient client = null;
+//            Member member = null;
+//
+//            try {
+//                client = AndroidHttpClient.newInstance("MovieMon", null);
+//                String mem = MemberMapper.toJson(_member);
+//                //String url = URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID) + "/" + mem;
+//                HttpUriRequest request = new HttpPut(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID) + "/" + mem);
+//                request.setHeader("Content-Type", "application/json");
+//                //request.
+//                //request.setEntity(MemberMapper.toJson(_member));
+//                HttpResponse response = client.execute(request);
+//                member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
+//            }
+//            catch (IOException e) {
+//                Log.e("HTTP", e.toString());
+//            }
+//            catch (Exception ex) {
+//                Log.e("General", ex.toString());
+//            }
+//            finally {
+//                if(null != client) {
+//                    client.close();
+//                }
+//            }
+
+//            return member;
+//        }
+
         @Override
         protected Member doInBackground(String... params) {
 
             AndroidHttpClient client = null;
             Member member = null;
 
-            try
-            {
+            try {
                 client = AndroidHttpClient.newInstance("MovieMon", null);
-                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
-                HttpResponse response = client.execute(request);
+                HttpClient request = new DefaultHttpClient();
+                //HttpPut put = new HttpPut(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
+                HttpPut put = new HttpPut(URL_BASE);
+                //put.setEntity(MemberMapper.toJson(_member).);
+                String mem = MemberMapper.toJson(_member);
+                put.setEntity(new ByteArrayEntity(mem.getBytes()));
+                HttpResponse response = client.execute(put);
                 member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 Log.e("HTTP", e.toString());
             }
+            catch (Exception ex) {
+                Log.e("General", ex.toString());
+            }
             finally {
-
-                client.close();
+                if(null != client) {
+                    client.close();
+                }
             }
 
             return member;
@@ -113,6 +160,32 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
 //            updateList(result.getMovieQueue());
 //            progressDialog.cancel();
         }
-    }
 
+        private String buildPut(String contactId, List<BasicNameValuePair> parts) {
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(URL_BASE);
+            sb.append(contactId);
+            sb.append("?");
+            sb.append(Uri.encode(DEFAULT_MEMEBER_ID));
+            sb.append(buildQuery(parts));
+
+            return sb.toString();
+        }
+        private String buildQuery(List<BasicNameValuePair> parts) {
+
+            StringBuilder sb = new StringBuilder();
+
+            for(BasicNameValuePair pair : parts) {
+
+                sb.append("&");
+                sb.append(pair.getName());
+                sb.append("=");
+                sb.append(pair.getValue());
+            }
+
+            return (sb.toString()).replace(' ','+');
+        }
+    }
 }

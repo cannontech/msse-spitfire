@@ -46,10 +46,7 @@ public class ReviewListActivity extends ListActivity {
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
         HeaderConfig headerConfig = new HeaderConfig(this, movie.getTitle() + " Reviews");
         updateList(movie.getReviews());
-
     }
-
-
 
     private void updateList(List<Review> reviews)
     {

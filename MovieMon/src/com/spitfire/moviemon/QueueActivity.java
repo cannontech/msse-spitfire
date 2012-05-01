@@ -36,7 +36,8 @@ public class QueueActivity extends ListActivity
     private ActionMode.Callback mActionModeCallback;
     private ProgressDialog progressDialog;
     private QueueActivity.MovieAdapter movieAdapter;
-    private int selectedItemIndex;
+    private int _selectedItemIndex;
+    private Member _member;
     private boolean watched;
 
     @Override
@@ -70,7 +71,7 @@ public class QueueActivity extends ListActivity
 
                 startActionMode(mActionModeCallback);
                 view.setSelected(true);
-                selectedItemIndex = position;
+                _selectedItemIndex = position;
 
                 return true;
             }
@@ -132,8 +133,12 @@ public class QueueActivity extends ListActivity
     private void showRating() {
 
         Intent intent = new Intent(this, UserRatingActivity.class);
-        Movie selected = movieAdapter.getItem(selectedItemIndex);
+
+        intent.putExtra("member", MemberMapper.toJson(_member));
+
+        Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
+
         startActivity(intent);
     }
 
@@ -150,7 +155,13 @@ public class QueueActivity extends ListActivity
         super.setListAdapter(movieAdapter);
     }
 
+    private void updateMember(Member member) {
+
+        _member = member;
+    }
+
     private class QueueTask extends AsyncTask<String, Void, Member> {
+
         @Override
         protected void onPreExecute()  {
             super.onPreExecute();
@@ -195,6 +206,7 @@ public class QueueActivity extends ListActivity
 
             }
             updateList(movieList);
+            updateMember(result);
             progressDialog.cancel();
         }
     }
@@ -235,7 +247,7 @@ public class QueueActivity extends ListActivity
                 }
                 catch (Exception e)
                 {
-                     Log.e("IMAGE", e.toString());
+                    Log.e("IMAGE", e.toString());
                 }
             }
             return item;
