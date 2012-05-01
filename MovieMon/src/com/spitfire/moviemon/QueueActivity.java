@@ -1,9 +1,6 @@
 package com.spitfire.moviemon;
 
-import com.spitfire.moviemon.data.MemberMapper;
-import com.spitfire.moviemon.data.Movie;
-import com.spitfire.moviemon.data.Member;
-import com.spitfire.moviemon.data.MovieMapper;
+import com.spitfire.moviemon.data.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -165,27 +162,13 @@ public class QueueActivity extends ListActivity
         
         @Override
         protected Member doInBackground(String... params) {
-
-            AndroidHttpClient client = null;
-
+            MemberProxy proxy = new MemberProxy();
             try
             {
-                client = AndroidHttpClient.newInstance("MovieMon", null);
-                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
-                HttpResponse response = client.execute(request);
-                Member member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
-
-                return member;
-            }
-            catch (IOException e)
-            {
-                Log.e("HTTP", e.toString());
-
-                return null;
+                return proxy.getDefaultMember();
             }
             finally {
-
-                client.close();
+                proxy.close();
             }
         }
         
