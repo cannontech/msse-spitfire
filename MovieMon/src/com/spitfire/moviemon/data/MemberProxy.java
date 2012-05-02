@@ -1,11 +1,7 @@
 package com.spitfire.moviemon.data;
 
-import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
-import com.spitfire.moviemon.data.Member;
-import com.spitfire.moviemon.data.MemberMapper;
-import com.spitfire.moviemon.data.Movie;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -32,17 +28,17 @@ public class MemberProxy {
     private final String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
 
     AndroidHttpClient client = null;
-    private static Member member = null;
+    private static Member theDefaultMember = null;
 
     public Member getDefaultMember(){
         //cache this guy and only refresh it after we've made changes to it.
-        if (member==null){
+        if (theDefaultMember ==null){
             try {
                 client = GetClient();
 //                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
                 HttpUriRequest request = new HttpGet(ALL_MEMBERS_URL);
                 HttpResponse response = client.execute(request);
-                member = MemberMapper.fromCollection(new InputStreamReader(response.getEntity().getContent()));
+                theDefaultMember = MemberMapper.fromCollection(new InputStreamReader(response.getEntity().getContent()));
             }
             catch (Exception e) {
                 Log.e("HTTP", e.toString());
@@ -51,7 +47,7 @@ public class MemberProxy {
                 close();
             }
         }
-        return member;
+        return theDefaultMember;
     }
 
     private AndroidHttpClient GetClient() {
@@ -78,7 +74,13 @@ public class MemberProxy {
     public void removeFromQueue(Movie movie){
         Member m = getDefaultMember();
         List<Movie> movies = m.getMovieQueue();
-        movies.remove(movie);
+        for(int i=0;i<movies.size();i++){
+            Movie movieToRemove=movies.get(i);
+            if (movie.getTitle().equals(movieToRemove.getTitle())){
+                m.getMovieQueue().remove(i);
+                break;
+            }
+        }
         putMember(m);
     }
 
@@ -102,7 +104,6 @@ public class MemberProxy {
             movieToRate.getKey().setWasWatched(true);
             movieToRate.getKey().setWatchedDateTime(new Date());
             putMember(m);
-            member = null;  //invalidate the cache
         }
     }
 
@@ -116,6 +117,8 @@ public class MemberProxy {
             String mem = MemberMapper.toJson(member);
             put.setEntity(new ByteArrayEntity(mem.getBytes()));
             HttpResponse response = client.execute(put);
+            theDefaultMember = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
+
         }
         catch (IOException e) {
             Log.e("HTTP", e.toString());

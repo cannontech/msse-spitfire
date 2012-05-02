@@ -109,7 +109,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
                 }
             }
 
-            return null;
+            return proxy.getDefaultMember();
         }
 
         @Override
@@ -117,7 +117,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
             super.onPostExecute(result);
 
             progressDialog.cancel();
-            ReloadQueue();
+           // ReloadQueue();
         }
     }
 }
