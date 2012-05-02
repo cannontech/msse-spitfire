@@ -63,6 +63,7 @@
                <Button android:id="@+id/add_to_queue"
                        android:text="Add to Queue"
                        style="@style/ActivityButton"
+                       android:visibility="invisible"
                        android:layout_width="128dp"
                        android:layout_height="32dp"/>
            </LinearLayout>
