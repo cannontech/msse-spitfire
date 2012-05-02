@@ -2,6 +2,7 @@ package com.spitfire.moviemon;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,12 @@ public class RemoveMovieFromQueue extends Activity {//implements View.OnClickLis
         new RemoveTask().execute();
     }
 
+    private void ReloadQueue() {
+
+        Intent intent = new Intent(this, QueueActivity.class);
+        startActivity(intent);
+    }
+
     private class RemoveTask extends AsyncTask<String, Void, Member> {
 
         @Override
@@ -42,7 +49,7 @@ public class RemoveMovieFromQueue extends Activity {//implements View.OnClickLis
             super.onPreExecute();
             progressDialog = new ProgressDialog(RemoveMovieFromQueue.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Removing your movie, bitch...");
+            progressDialog.setMessage("Removing your movie...");
             progressDialog.show();
         }
 
@@ -73,7 +80,7 @@ public class RemoveMovieFromQueue extends Activity {//implements View.OnClickLis
             super.onPostExecute(result);
 
             progressDialog.cancel();
-            //ReloadQueue();
+            ReloadQueue();
         }
     }
 }

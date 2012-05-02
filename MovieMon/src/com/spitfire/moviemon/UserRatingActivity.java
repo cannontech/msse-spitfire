@@ -84,7 +84,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
             super.onPreExecute();
             progressDialog = new ProgressDialog(UserRatingActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Rating your movie, bitch...");
+            progressDialog.setMessage("Rating your movie...");
             progressDialog.show();
         }
 

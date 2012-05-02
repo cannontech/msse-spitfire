@@ -180,33 +180,29 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         @Override
         protected void onPreExecute()  {
             super.onPreExecute();
-//            progressDialog = new ProgressDialog(QueueActivity.this);
-//            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//            progressDialog.setMessage("Loading Queue...");
-//            progressDialog.show();
         }
 
         @Override
         protected String doInBackground(String... newMovies) {
+
             movie = MovieMapper.movieFromJson(newMovies[0]);
+
             try {
                 memberProxy.addToQueue(movie);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 Log.e("HTTP", e.toString());
             }
             finally {
                 memberProxy.close();
             }
+
             return "AddedToQueue" ;
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-//            updateList(result.getMovieQueue());
-//            progressDialog.cancel();
         }
     }
 }
