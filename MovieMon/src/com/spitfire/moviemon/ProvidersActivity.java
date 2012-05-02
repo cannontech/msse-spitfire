@@ -1,20 +1,34 @@
 package com.spitfire.moviemon;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import android.view.View.OnClickListener;
-import com.spitfire.moviemon.data.Movie;
-import com.spitfire.moviemon.data.MovieMapper;
-import com.spitfire.moviemon.data.Availability;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.spitfire.moviemon.data.*;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ByteArrayEntity;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,7 +39,8 @@ import java.net.URL;
  */
 public class ProvidersActivity extends Activity implements OnClickListener {
     private Movie movie;
-
+    private ProgressDialog progressDialog;
+    private final String URL_BASE = "http://movieman.apphb.com/api/Reservations";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.providers);
@@ -70,8 +85,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
                     }
                 }
                 case R.id.add_to_queue: {
-
-
+                    new ReserveTask().execute();
                 }
             }
         }
@@ -201,6 +215,82 @@ public class ProvidersActivity extends Activity implements OnClickListener {
             }
         }
 
+    }
+
+    private class ReserveTask extends AsyncTask<String, Void, MovieReservationResult>
+    {
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(ProvidersActivity.this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage("Reserving...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected MovieReservationResult doInBackground(String... params)
+        {
+            AndroidHttpClient client = null;
+            MovieReservationResult result = null;
+            try
+            {
+                client = AndroidHttpClient.newInstance("MovieMon", null);
+                HttpPost put = new HttpPost(URL_BASE);
+                put.setHeader("Accept", "application/json");
+                put.setHeader("Content-type", "application/json");
+
+                MovieReservation reserv = new MovieReservation();
+                reserv.setTitle(movie.getTitle());
+                RadioGroup group = (RadioGroup) findViewById(R.id.group_provider);
+                if (group.getCheckedRadioButtonId() == R.id.radio_netflix)
+                {
+                  reserv.setProviderName("Netflix");
+                }
+                else
+                {
+                    reserv.setProviderName("RedBox");
+                }
+                RadioGroup formatGroup = (RadioGroup) findViewById(R.id.group_format);
+                RadioButton format = (RadioButton) findViewById(formatGroup.getCheckedRadioButtonId());
+                reserv.setFormat(format.getText().toString());
+
+                Gson gson = new Gson();
+                String str =  gson.toJson(reserv);
+                put.setEntity(new ByteArrayEntity(gson.toJson(reserv).getBytes()));
+                HttpResponse response = client.execute(put);
+
+                result = (MovieReservationResult) gson.fromJson(new InputStreamReader(response.getEntity().getContent()), new TypeToken<MovieReservationResult>(){}.getType());
+
+
+            }
+            catch (IOException e)
+            {
+                Log.e("HTTP", e.toString());
+            }
+            finally {
+                client.close();
+            }
+             return result;
+           
+        }
+
+        @Override
+        protected void onPostExecute(MovieReservationResult result)
+        {
+            super.onPostExecute(result);
+            progressDialog.cancel();
+            new AlertDialog.Builder(ProvidersActivity.this)
+                    .setTitle("Success")
+                    .setMessage(result.getConfirmationMessage())
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .show();
+        }
     }
    
 
