@@ -197,7 +197,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                 Log.e("HTTP", e.toString());
             }
             finally {
-
+                memberProxy.close();
             }
             return "AddedToQueue" ;
         }
