@@ -11,13 +11,11 @@ public class MemberMapper {
 
     public static Member memberFromJson(InputStreamReader reader) {
         Gson memberMaker = new Gson();
-
         return (Member) memberMaker.fromJson(reader, new TypeToken<Member>(){}.getType());
     }
 
     public static Member memberFromJson(String json) {
         Gson memberMaker = new Gson();
-
         return (Member) memberMaker.fromJson(json, new TypeToken<Member>(){}.getType());
     }
 
@@ -25,5 +23,11 @@ public class MemberMapper {
         Gson memberMaker = new Gson();
 
         return memberMaker.toJson(member);
+    }
+
+    public static Member fromCollection(InputStreamReader reader){
+        Gson memberMaker = new Gson();
+        List<Member> members = memberMaker.fromJson(reader, new TypeToken<List<Member>>(){}.getType());
+        return members.get(0);
     }
 }

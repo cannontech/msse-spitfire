@@ -26,29 +26,31 @@ import java.util.List;
  */
 public class MemberProxy {
 
-    // private final String URL_BASE = "http://10.0.2.2/MovieMon/api/Members";
+     //private final String URL_BASE = "http://10.0.2.2/MovieMon/api/Members";
     private final String URL_BASE = "http://movieman.apphb.com/api/Members/";
+    private final String ALL_MEMBERS_URL="http://movieman.apphb.com/api/Members/";
     private final String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
 
     AndroidHttpClient client = null;
-    Member member = null;
+    private static Member member = null;
 
     public Member getDefaultMember(){
         //cache this guy and only refresh it after we've made changes to it.
-
-        try {
-            client = GetClient();
-            HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
-            HttpResponse response = client.execute(request);
-            member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
+        if (member==null){
+            try {
+                client = GetClient();
+//                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
+                HttpUriRequest request = new HttpGet(ALL_MEMBERS_URL);
+                HttpResponse response = client.execute(request);
+                member = MemberMapper.fromCollection(new InputStreamReader(response.getEntity().getContent()));
+            }
+            catch (Exception e) {
+                Log.e("HTTP", e.toString());
+            }
+            finally {
+                close();
+            }
         }
-        catch (Exception e) {
-            Log.e("HTTP", e.toString());
-        }
-        finally {
-            close();
-        }
-
         return member;
     }
 
@@ -100,6 +102,7 @@ public class MemberProxy {
             movieToRate.getKey().setWasWatched(true);
             movieToRate.getKey().setWatchedDateTime(new Date());
             putMember(m);
+            member = null;  //invalidate the cache
         }
     }
 
