@@ -53,9 +53,9 @@
               android:orientation="horizontal">
 
         <Button android:id="@+id/ok_button"
-            style="@style/MainButton"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:text="@string/ok" />
+                style="@style/MainButton"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="@string/ok" />
     </LinearLayout>
 </LinearLayout>

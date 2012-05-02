@@ -82,29 +82,30 @@ public class SearchActivity extends ListActivity
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage("Searching for '" + searchField.getText().toString() + "'...");
             progressDialog.show();
-                    
         }
         
         @Override
         protected List<Movie> doInBackground(String... params)
         {
             AndroidHttpClient client = null;
+            List<Movie> movies = null;
+
             try
             {
                 client = AndroidHttpClient.newInstance("MovieMon", null);
                 HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(params[0]));
                 HttpResponse response = client.execute(request);
-                List<Movie> movies = MovieMapper.listFromJson(new InputStreamReader(response.getEntity().getContent()));
-                client.close();
-                return movies;
-
+                movies = MovieMapper.listFromJson(new InputStreamReader(response.getEntity().getContent()));
             }
             catch (IOException e)
             {
                 Log.e("HTTP", e.toString());
-                client.close();
-                return null;
             }
+            finally {
+                client.close();
+            }
+
+            return movies;
         }
         
         @Override
@@ -156,19 +157,17 @@ public class SearchActivity extends ListActivity
             ((TextView)item.findViewById(R.id.item_title)).setText(movie.getTitle());
             ((TextView)item.findViewById(R.id.item_mpaa)).setText(movie.getMPAARating());
             ((TextView)item.findViewById(R.id.item_runtime)).setText(movie.getRunTime());
-            if (movie.getRelatedImages() != null && movie.getRelatedImages().size() > 0)
-            {
+
+            if (movie.getRelatedImages() != null && movie.getRelatedImages().size() > 0) {
                 String imgUrl = movie.getRelatedImages().get(0).getUrl();
-                try
-                {
+
+                try {
                     ((ImageView)item.findViewById(R.id.item_cover)).setImageDrawable(Drawable.createFromStream((InputStream) new URL(imgUrl).getContent(), "src"));
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                      Log.e("IMAGE", e.toString());
                 }
             }
-
 
             return item;
         }

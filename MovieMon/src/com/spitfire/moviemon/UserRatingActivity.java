@@ -1,6 +1,7 @@
 package com.spitfire.moviemon;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 import com.spitfire.moviemon.data.*;
@@ -33,8 +35,8 @@ import java.util.List;
  */
 public class UserRatingActivity extends Activity implements RatingBar.OnRatingBarChangeListener,View.OnClickListener {
 
-    //private Button _okButton;
     private Movie _movie;
+    private ProgressDialog progressDialog;
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -44,8 +46,6 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingbar);
         ratingbar.setOnRatingBarChangeListener(this);
 
-        //_okButton = (Button)findViewById(R.id.ok_button);
-        //_okButton.setOnClickListener(this);
         findViewById(R.id.ok_button).setOnClickListener(this);
     }
 
@@ -75,22 +75,27 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         @Override
         protected void onPreExecute()  {
             super.onPreExecute();
-//            progressDialog = new ProgressDialog(QueueActivity.this);
-//            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//            progressDialog.setMessage("Loading Queue...");
-//            progressDialog.show();
+            progressDialog = new ProgressDialog(UserRatingActivity.this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage("Loading Queue...");
+            progressDialog.show();
         }
 
         @Override
         protected Member doInBackground(String... params) {
+
             MemberProxy proxy = new MemberProxy();
+
+            EditText comments = (EditText)findViewById(R.id.rating_comments);
+
             try {
-                proxy.rateMovie(_movie.getTitle(), "this movie was ok", _movie.getKey().getRating());
+                proxy.rateMovie(_movie.getTitle(), comments.getText().toString(), _movie.getKey().getRating());
             }
             catch (Exception ex) {
                 Log.e("General", ex.toString());
             }
             finally {
+
                 if(null != proxy) {
                     proxy.close();
                 }
@@ -103,7 +108,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         protected void onPostExecute(Member result) {
             super.onPostExecute(result);
 //            updateList(result.getMovieQueue());
-//            progressDialog.cancel();
+            progressDialog.cancel();
         }
     }
 }

@@ -25,6 +25,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class MemberProxy {
+
     // private final String URL_BASE = "http://10.0.2.2/MovieMon/api/Members";
     private final String URL_BASE = "http://movieman.apphb.com/api/Members/";
     private final String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
@@ -35,15 +36,13 @@ public class MemberProxy {
     public Member getDefaultMember(){
         //cache this guy and only refresh it after we've made changes to it.
 
-        try
-        {
+        try {
             client = GetClient();
             HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
             HttpResponse response = client.execute(request);
             member = MemberMapper.memberFromJson(new InputStreamReader(response.getEntity().getContent()));
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Log.e("HTTP", e.toString());
         }
         finally {
@@ -87,12 +86,14 @@ public class MemberProxy {
         Member m = getDefaultMember();
         List<Movie> movies = m.getMovieQueue();
         Movie movieToRate = null;
+
         for (Movie movie:movies){
             if (movie.getTitle().equals(title)){
                 movieToRate=movie;
                 break;
             }
         }
+
         if (movieToRate!=null){
             movieToRate.getKey().setRating(rating);
             movieToRate.getKey().setComment(comment);
@@ -104,8 +105,7 @@ public class MemberProxy {
 
     private void putMember(Member member){
 
-        try
-        {
+        try {
             client = GetClient();
             HttpPut put = new HttpPut(URL_BASE);
             put.setHeader("Accept", "application/json");
@@ -114,8 +114,7 @@ public class MemberProxy {
             put.setEntity(new ByteArrayEntity(mem.getBytes()));
             HttpResponse response = client.execute(put);
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             Log.e("HTTP", e.toString());
         }
         finally {

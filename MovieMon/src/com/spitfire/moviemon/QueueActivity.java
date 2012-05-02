@@ -132,8 +132,6 @@ public class QueueActivity extends ListActivity
 
         Intent intent = new Intent(this, UserRatingActivity.class);
 
-        //intent.putExtra("member", MemberMapper.toJson(_member));
-
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
 
