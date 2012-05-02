@@ -39,15 +39,14 @@ public class QueueActivity extends ListActivity
     private boolean watched;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);      
         setContentView(R.layout.list);
         Bundle extras = super.getIntent().getExtras();
         watched = extras.getString("watched") != null && extras.getString("watched").equals("true");
         String title = "My Queue";
-        if (watched)
-        {
+
+        if (watched) {
             title = "Watched Movies";
         }
         HeaderConfig headerConfig = new HeaderConfig(this, title);
@@ -59,7 +58,7 @@ public class QueueActivity extends ListActivity
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showMovieDetail(position);
+            showMovieDetail(position);
             }
         });
 
@@ -101,7 +100,7 @@ public class QueueActivity extends ListActivity
                     break;
 
                     case R.id.remove: {
-                        int x =3;
+                        showRemove();
                         retVal = true;
                     }
                     break;
@@ -131,6 +130,16 @@ public class QueueActivity extends ListActivity
     private void showRating() {
 
         Intent intent = new Intent(this, UserRatingActivity.class);
+
+        Movie selected = movieAdapter.getItem(_selectedItemIndex);
+        intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
+
+        startActivity(intent);
+    }
+
+    private void showRemove() {
+
+        Intent intent = new Intent(this, RemoveMovieFromQueue.class);
 
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));

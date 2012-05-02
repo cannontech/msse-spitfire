@@ -2,6 +2,7 @@ package com.spitfire.moviemon;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -70,14 +71,20 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         }
     }
 
+    private void ReloadQueue() {
+
+        Intent intent = new Intent(this, QueueActivity.class);
+        startActivity(intent);
+    }
+
     private class RateTask extends AsyncTask<String, Void, Member> {
 
         @Override
-        protected void onPreExecute()  {
+        protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(UserRatingActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setMessage("Loading Queue...");
+            progressDialog.setMessage("Rating your movie, bitch...");
             progressDialog.show();
         }
 
@@ -98,6 +105,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
 
                 if(null != proxy) {
                     proxy.close();
+                    proxy = null;
                 }
             }
 
@@ -107,8 +115,9 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         @Override
         protected void onPostExecute(Member result) {
             super.onPostExecute(result);
-//            updateList(result.getMovieQueue());
+
             progressDialog.cancel();
+            ReloadQueue();
         }
     }
 }
