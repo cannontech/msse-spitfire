@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class UserRatingActivity extends Activity implements RatingBar.OnRatingBarChangeListener,View.OnClickListener {
 
-    private Button _okButton;
+    //private Button _okButton;
     private Movie _movie;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,9 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingbar);
         ratingbar.setOnRatingBarChangeListener(this);
 
-        _okButton = (Button)findViewById(R.id.ok_button);
-        _okButton.setOnClickListener(this);
+        //_okButton = (Button)findViewById(R.id.ok_button);
+        //_okButton.setOnClickListener(this);
+        findViewById(R.id.ok_button).setOnClickListener(this);
     }
 
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
