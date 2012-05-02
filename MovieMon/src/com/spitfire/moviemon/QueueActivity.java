@@ -234,6 +234,7 @@ public class QueueActivity extends ListActivity
                 if (movie.getKey() != null) {
                     ((RatingBar)item.findViewById(R.id.item_rating)).setRating(movie.getKey().getRating());
                     ((TextView)item.findViewById(R.id.item_comment)).setText(movie.getKey().getComment());
+                    ((TextView)item.findViewById(R.id.watched_date)).setText(movie.getKey().getWatchedDateTime().toString());
                 }
             }
             else {
