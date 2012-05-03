@@ -137,6 +137,7 @@ public class QueueActivity extends ListActivity
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
         startActivity(intent);
+        finish();
     }
 
     private void showRemove() {
@@ -144,6 +145,7 @@ public class QueueActivity extends ListActivity
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
         startActivity(intent);
+        finish();
     }
 
     private void showMovieDetail(int position) {
