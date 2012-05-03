@@ -22,7 +22,7 @@ public class HeaderConfig {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(_activity, HomeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     _activity.startActivity(intent);
                     _activity.finish();
                 }
