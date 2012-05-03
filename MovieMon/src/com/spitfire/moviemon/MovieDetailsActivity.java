@@ -100,15 +100,19 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         Bundle extras = super.getIntent().getExtras();
         movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
         HeaderConfig headerConfig = new HeaderConfig(this, movie.getTitle());
-        String imgUrl = movie.getRelatedImages().get(1).getUrl();
+        if (movie.getRelatedImages() != null && movie.getRelatedImages().get(1) != null)
+        {
+            String imgUrl = movie.getRelatedImages().get(1).getUrl();
 
-        try
-        {
-            ((ImageView)findViewById(R.id.item_cover)).setImageDrawable(Drawable.createFromStream((InputStream) new URL(imgUrl).getContent(), "src"));
-        }
-        catch (Exception e)
-        {
-            Log.e("IMAGE", e.toString());
+
+            try
+            {
+                ((ImageView)findViewById(R.id.item_cover)).setImageDrawable(Drawable.createFromStream((InputStream) new URL(imgUrl).getContent(), "src"));
+            }
+            catch (Exception e)
+            {
+                Log.e("IMAGE", e.toString());
+            }
         }
 
         TextView name = (TextView)findViewById(R.id.critic_rating);
@@ -142,18 +146,21 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
         String format = "";
         boolean first = true;
 
-        for (Availability avail : movie.getAvailability() ) {
+        if (movie.getAvailability() != null)
+        {
+            for (Availability avail : movie.getAvailability() ) {
 
-            if (!format.contains(avail.getDeliveryFormat())) {
+                if (!format.contains(avail.getDeliveryFormat())) {
 
-                if (!first) {
-                    format = format + ", ";
+                    if (!first) {
+                        format = format + ", ";
+                    }
+                    format = format + avail.getDeliveryFormat();
+                    first = false;
                 }
-                format = format + avail.getDeliveryFormat();
-                first = false;
             }
+            formats.setText(format);
         }
-        formats.setText(format);
 
         TextView cast = (TextView)findViewById(R.id.cast);
         cast.setText(movie.getCast().toString().replace("[","").replace("]",""));
