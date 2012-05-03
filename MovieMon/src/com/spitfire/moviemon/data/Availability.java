@@ -21,6 +21,9 @@ public class Availability{
     @SerializedName("ProviderName")
    	private String providerName;
 
+    @SerializedName("ReleaseDate")
+    private String releaseDate;
+
     public List<String> getAddresses() {
         return addresses;
     }
@@ -53,4 +56,13 @@ public class Availability{
 	public void setProviderName(String providerName){
 		this.providerName = providerName;
 	}
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
 }

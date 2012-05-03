@@ -128,12 +128,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
             movie.getAvailability().get(0) != null &&
             movie.getAvailability().get(0).getAvailableFrom() != null)
         {
-/*            String date = movie.getAvailability().get(0).getAvailableFrom();
-            date = date.substring(6,18);
-            Long longDate = Long.valueOf(date);
-            Date d = new Date(longDate);
-            dateReleased.setText(d.getDate());*/
-            dateReleased.setText(movie.getAvailability().get(0).getAvailableFrom());
+            dateReleased.setText(movie.getAvailability().get(0).getReleaseDate());
         }
 
         TextView runtime = (TextView)findViewById(R.id.runtime);
