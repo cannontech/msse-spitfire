@@ -74,6 +74,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
     private void ReloadQueue() {
 
         Intent intent = new Intent(this, QueueActivity.class);
+        //intent.putExtra("watched", "false");
         startActivity(intent);
     }
 
@@ -102,22 +103,16 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
                 Log.e("General", ex.toString());
             }
             finally {
-
-                if(null != proxy) {
-                    proxy.close();
-                    proxy = null;
-                }
+                proxy.close();
             }
-
-            return proxy.getDefaultMember();
+            return null;
         }
 
         @Override
         protected void onPostExecute(Member result) {
             super.onPostExecute(result);
-
             progressDialog.cancel();
-           // ReloadQueue();
+            ReloadQueue();
         }
     }
 }

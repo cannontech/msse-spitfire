@@ -39,6 +39,7 @@ public class RemoveMovieFromQueue extends Activity {//implements View.OnClickLis
     private void ReloadQueue() {
 
         Intent intent = new Intent(this, QueueActivity.class);
+        intent.putExtra("watched", "false");
         startActivity(intent);
     }
 
@@ -78,7 +79,6 @@ public class RemoveMovieFromQueue extends Activity {//implements View.OnClickLis
         @Override
         protected void onPostExecute(Member result) {
             super.onPostExecute(result);
-
             progressDialog.cancel();
             ReloadQueue();
         }

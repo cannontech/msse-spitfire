@@ -24,19 +24,17 @@ public class MemberProxy {
 
      //private final String URL_BASE = "http://10.0.2.2/MovieMon/api/Members";
     private final String URL_BASE = "http://movieman.apphb.com/api/Members/";
-    private final String ALL_MEMBERS_URL="http://movieman.apphb.com/api/Members/";
+
     private final String DEFAULT_MEMEBER_ID = "f98b9048-1324-440f-802f-ebcfab1c5395";
 
     AndroidHttpClient client = null;
     private static Member theDefaultMember = null;
-
     public Member getDefaultMember(){
         //cache this guy and only refresh it after we've made changes to it.
         if (theDefaultMember ==null){
             try {
                 client = GetClient();
-//                HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(DEFAULT_MEMEBER_ID));
-                HttpUriRequest request = new HttpGet(ALL_MEMBERS_URL);
+                HttpUriRequest request = new HttpGet(URL_BASE);
                 HttpResponse response = client.execute(request);
                 theDefaultMember = MemberMapper.fromCollection(new InputStreamReader(response.getEntity().getContent()));
             }

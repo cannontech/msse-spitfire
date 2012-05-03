@@ -40,10 +40,13 @@ public class QueueActivity extends ListActivity
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);      
         setContentView(R.layout.list);
         Bundle extras = super.getIntent().getExtras();
-        watched = extras.getString("watched") != null && extras.getString("watched").equals("true");
+        if (extras!=null){
+            watched = extras.getString("watched") != null && extras.getString("watched").equals("true");
+        }
         String title = "My Queue";
 
         if (watched) {
