@@ -193,7 +193,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
             for (Availability avail : movie.getAvailability() ) {
                 if (avail.getProviderName().equals("Netflix")) {
                     Button addButton = (Button)findViewById(R.id.add_to_queue);
-                    addButton.setText("Add to Queue");
+                    addButton.setText("Add to Netflix Queue");
                     addButton.setVisibility(View.VISIBLE);
                     RadioButton button1 = new RadioButton(this);
                     button1.setText(avail.getDeliveryFormat());
@@ -207,7 +207,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
 
                 if (avail.getProviderName().equals("RedBox")) {
                     Button addButton = (Button)findViewById(R.id.add_to_queue);
-                    addButton.setText("Reserve");
+                    addButton.setText("Reserve at RedBox");
                     addButton.setVisibility(View.VISIBLE);
                     RadioButton button1 = new RadioButton(this);
                     button1.setText(avail.getDeliveryFormat());
