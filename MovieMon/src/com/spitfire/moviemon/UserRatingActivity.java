@@ -72,9 +72,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
     }
 
     private void ReloadQueue() {
-
         Intent intent = new Intent(this, QueueActivity.class);
-        //intent.putExtra("watched", "false");
         startActivity(intent);
     }
 

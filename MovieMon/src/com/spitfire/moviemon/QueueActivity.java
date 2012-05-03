@@ -96,7 +96,6 @@ public class QueueActivity extends ListActivity
                 switch (item.getItemId()) {
 
                     case R.id.rate: {
-
                         showRating();
                         retVal = true;
                     }
@@ -131,22 +130,16 @@ public class QueueActivity extends ListActivity
     }
 
     private void showRating() {
-
         Intent intent = new Intent(this, UserRatingActivity.class);
-
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
-
         startActivity(intent);
     }
 
     private void showRemove() {
-
         Intent intent = new Intent(this, RemoveMovieFromQueue.class);
-
         Movie selected = movieAdapter.getItem(_selectedItemIndex);
         intent.putExtra("selectedMovie", MovieMapper.toJson(selected));
-
         startActivity(intent);
     }
 
@@ -165,7 +158,7 @@ public class QueueActivity extends ListActivity
 
     private void updateMember(Member member) {
 
-        _member = member;
+        //_member = member;
     }
 
     private class QueueTask extends AsyncTask<String, Void, Member> {
@@ -211,10 +204,10 @@ public class QueueActivity extends ListActivity
                     }
                 }
             }
-
+            progressDialog.cancel();
             updateList(movieList);
             updateMember(result);
-            progressDialog.cancel();
+
         }
     }
 
