@@ -41,6 +41,7 @@ public class ProvidersActivity extends Activity implements OnClickListener {
     private Movie movie;
     private ProgressDialog progressDialog;
     private final String URL_BASE = "http://movieman.apphb.com/api/Reservations";
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.providers);

@@ -44,14 +44,17 @@ public class QueueActivity extends ListActivity
         super.onCreate(savedInstanceState);      
         setContentView(R.layout.list);
         Bundle extras = super.getIntent().getExtras();
+
         if (extras!=null){
             watched = extras.getString("watched") != null && extras.getString("watched").equals("true");
         }
+
         String title = "My Queue";
 
         if (watched) {
             title = "Watched Movies";
         }
+
         HeaderConfig headerConfig = new HeaderConfig(this, title);
                
         new QueueTask().execute();
@@ -207,7 +210,6 @@ public class QueueActivity extends ListActivity
             progressDialog.cancel();
             updateList(movieList);
             updateMember(result);
-
         }
     }
 
@@ -225,12 +227,19 @@ public class QueueActivity extends ListActivity
             LayoutInflater inflater = getLayoutInflater();
             Movie movie = getItem(position);
             View item = inflater.inflate(R.layout.list_item, parent, false);
+
             if (watched) {
+
                 item = inflater.inflate(R.layout.watched_item, parent, false);
+
                 if (movie.getKey() != null) {
+
                     ((RatingBar)item.findViewById(R.id.item_rating)).setRating(movie.getKey().getRating());
                     ((TextView)item.findViewById(R.id.item_comment)).setText(movie.getKey().getComment());
-                    ((TextView)item.findViewById(R.id.watched_date)).setText(movie.getKey().getWatchedDateTime().toString());
+
+                    if(null != movie.getKey().getWatchedDateTime()) {
+                        ((TextView)item.findViewById(R.id.watched_date)).setText(movie.getKey().getWatchedDateTime().toString());
+                    }
                 }
             }
             else {
@@ -239,15 +248,15 @@ public class QueueActivity extends ListActivity
             }
 
             ((TextView)item.findViewById(R.id.item_title)).setText(movie.getTitle());
-            if (movie.getRelatedImages() != null && movie.getRelatedImages().size() > 0)
-            {
+
+            if (movie.getRelatedImages() != null && movie.getRelatedImages().size() > 0) {
+
                 String imgUrl = movie.getRelatedImages().get(0).getUrl();
-                try
-                {
+
+                try {
                     ((ImageView)item.findViewById(R.id.item_cover)).setImageDrawable(Drawable.createFromStream((InputStream) new URL(imgUrl).getContent(), "src"));
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     Log.e("IMAGE", e.toString());
                 }
             }

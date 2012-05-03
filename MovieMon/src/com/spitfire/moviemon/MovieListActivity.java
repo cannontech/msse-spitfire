@@ -64,32 +64,28 @@ public class MovieListActivity extends ListActivity
     private class GenreTask extends AsyncTask<String, Void, List<Movie>>
     {
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(MovieListActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage("Loading...");
             progressDialog.show();
-                    
         }
         
         @Override
-        protected List<Movie> doInBackground(String... params)
-        {
+        protected List<Movie> doInBackground(String... params) {
             AndroidHttpClient client = null;
-            try
-            {
+
+            try {
                 client = AndroidHttpClient.newInstance("MovieMon", null);
                 HttpUriRequest request = new HttpGet(URL_BASE + Uri.encode(params[0]));
                 HttpResponse response = client.execute(request);
                 List<Movie> movies = MovieMapper.listFromJson(new InputStreamReader(response.getEntity().getContent()));
                 client.close();
-                return movies;
 
+                return movies;
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 Log.e("HTTP", e.toString());
                 client.close();
                 return null;
