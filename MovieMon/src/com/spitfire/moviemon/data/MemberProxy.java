@@ -63,10 +63,20 @@ public class MemberProxy {
     }
 
     public void addToQueue(Movie movie){
-        Member m = getDefaultMember();
-        List<Movie> movies = m.getMovieQueue();
-        movies.add(movie);
-        putMember(m);
+        Member member = getDefaultMember();
+        List<Movie> movies = member.getMovieQueue();
+        boolean isInQ=false;
+
+        for (Movie m:movies){
+            if (m.getTitle().equals(movie.getTitle())){
+                isInQ=true;
+                break;
+            }
+        }
+        if(!isInQ){
+            movies.add(movie);
+            putMember(member);
+        }
     }
 
     public void removeFromQueue(Movie movie){
