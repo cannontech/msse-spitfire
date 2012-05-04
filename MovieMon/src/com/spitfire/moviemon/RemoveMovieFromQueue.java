@@ -39,6 +39,7 @@ public class RemoveMovieFromQueue extends Activity {//implements View.OnClickLis
     private void ReloadQueue() {
         Intent intent = new Intent(this, QueueActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private class RemoveTask extends AsyncTask<String, Void, Member> {
