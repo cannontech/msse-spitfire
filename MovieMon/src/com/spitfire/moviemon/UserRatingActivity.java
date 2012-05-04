@@ -38,6 +38,7 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
 
     private Movie _movie;
     private ProgressDialog progressDialog;
+    private Button ok;
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -47,11 +48,13 @@ public class UserRatingActivity extends Activity implements RatingBar.OnRatingBa
         RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingbar);
         ratingbar.setOnRatingBarChangeListener(this);
 
-        findViewById(R.id.ok_button).setOnClickListener(this);
+        ok = (Button) findViewById(R.id.ok_button);
+        ok.setOnClickListener(this);
+        ok.setVisibility(View.INVISIBLE);
     }
 
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-
+        ok.setVisibility(View.VISIBLE);
         Bundle extras = super.getIntent().getExtras();
         _movie = MovieMapper.movieFromJson(extras.getString("selectedMovie"));
 
