@@ -32,8 +32,8 @@ public class Key {
     @SerializedName("wasWatched")
     private Boolean wasWatched;
 
-    @SerializedName("WatchedDateTime")
-    private Date watchedDateTime;
+    @SerializedName("WatchedDate")
+    private String watchedDateTime;
 
     public String getComment() {
         return comment;
@@ -83,11 +83,11 @@ public class Key {
         this.wasWatched = wasWatched;
     }
 
-    public Date getWatchedDateTime() {
+    public String getWatchedDateTime() {
         return watchedDateTime;
     }
 
-    public void setWatchedDateTime(Date watchedDateTime) {
+    public void setWatchedDateTime(String watchedDateTime) {
         this.watchedDateTime = watchedDateTime;
     }
 }

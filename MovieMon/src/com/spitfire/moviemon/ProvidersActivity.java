@@ -121,9 +121,9 @@ public class ProvidersActivity extends Activity implements OnClickListener {
         runtime.setText(movie.getRunTime());
 
         TextView dateReleased = (TextView)findViewById(R.id.released_date);
-        if (movie.getAvailability() != null && movie.getAvailability().size() > 0 && movie.getAvailability().get(0) != null &&movie.getAvailability().get(0).getAvailableFrom() != null)
+        if (movie.getAvailability() != null && movie.getAvailability().size() > 0 && movie.getAvailability().get(0) != null &&movie.getAvailability().get(0).getReleaseDate() != null)
         {
-            dateReleased.setText(movie.getAvailability().get(0).getAvailableFrom());
+            dateReleased.setText(movie.getAvailability().get(0).getReleaseDate());
         }
 
         String netflixAvailability = "";

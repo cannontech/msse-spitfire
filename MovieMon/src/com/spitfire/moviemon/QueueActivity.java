@@ -240,7 +240,7 @@ public class QueueActivity extends ListActivity
                     ((TextView)item.findViewById(R.id.item_comment)).setText(movie.getKey().getComment());
 
                     if(null != movie.getKey().getWatchedDateTime()) {
-                        ((TextView)item.findViewById(R.id.watched_date)).setText(movie.getKey().getWatchedDateTime().toString());
+                        ((TextView)item.findViewById(R.id.watched_date)).setText(movie.getKey().getWatchedDateTime());
                     }
                 }
             }

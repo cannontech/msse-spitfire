@@ -10,6 +10,7 @@ import org.apache.http.entity.ByteArrayEntity;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class MemberProxy {
             movieToRate.getKey().setRating(rating);
             movieToRate.getKey().setComment(comment);
             movieToRate.getKey().setWasWatched(true);
-            movieToRate.getKey().setWatchedDateTime(new Date());
+            movieToRate.getKey().setWatchedDateTime(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
             putMember(m);
         }
     }
