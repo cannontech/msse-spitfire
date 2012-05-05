@@ -77,6 +77,8 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                             urlToPlay="http://m.youtube.com/watch?v=g8evyE9TuYk";
                         }
                         Intent videoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlToPlay));
+                        videoIntent.setClassName("com.google.android.youtube", "com.google.android.youtube.PlayerActivity");
+                        //startActivityForResult(videoClient, VIDEO_APP);
                         startActivity(videoIntent);
                         finish();
 //                        WebView wView = new WebView(this);
