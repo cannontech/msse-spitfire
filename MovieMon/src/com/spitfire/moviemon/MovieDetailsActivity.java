@@ -76,13 +76,16 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                         }else{
                             urlToPlay="http://m.youtube.com/watch?v=g8evyE9TuYk";
                         }
-                        WebView wView = new WebView(this);
-                        wView.getSettings().setPluginState(WebSettings.PluginState.ON);
-                        wView.getSettings().setJavaScriptEnabled(true);
-                        wView.getSettings().setAllowFileAccess(true);
-                        wView.getSettings().setPluginsEnabled(true);
-                        wView.loadUrl(urlToPlay);
-                        setContentView(wView);
+                        Intent videoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlToPlay));
+                        startActivity(videoIntent);
+                        finish();
+//                        WebView wView = new WebView(this);
+//                        wView.getSettings().setPluginState(WebSettings.PluginState.ON);
+//                        wView.getSettings().setJavaScriptEnabled(true);
+//                        wView.getSettings().setAllowFileAccess(true);
+//                        wView.getSettings().setPluginsEnabled(true);
+//                        wView.loadUrl(urlToPlay);
+//                        setContentView(wView);
                     //wView.setWebViewClient(new MyWebViewClient());
                         break;
                    // }
