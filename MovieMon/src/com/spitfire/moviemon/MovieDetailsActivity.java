@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,15 +62,30 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
 
                 if (movie.getRelatedClips() != null && !movie.getRelatedClips().isEmpty())
                 {
-                    String trailerUrl = movie.getRelatedClips().get(0);
+                    //String trailerUrl = movie.getRelatedClips().get(0);
 
-                    if (trailerUrl != null)
-                    {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.parse(trailerUrl),"video/*");
-                        startActivity(intent);
+//                    if (trailerUrl != null)
+//                    {
+
+                        //Intent intent = new Intent(this, TrailerActivity.class);
+                        //intent.putExtra("url", trailerUrl);
+                        //startActivity(intent);
+                        String urlToPlay = null;
+                        if (movie.getTitle().equalsIgnoreCase("Rocky")){
+                            urlToPlay="http://m.youtube.com/watch?v=aJmr5CKY73M";
+                        }else{
+                            urlToPlay="http://m.youtube.com/watch?v=g8evyE9TuYk";
+                        }
+                        WebView wView = new WebView(this);
+                        wView.getSettings().setPluginState(WebSettings.PluginState.ON);
+                        wView.getSettings().setJavaScriptEnabled(true);
+                        wView.getSettings().setAllowFileAccess(true);
+                        wView.getSettings().setPluginsEnabled(true);
+                        wView.loadUrl(urlToPlay);
+                        setContentView(wView);
+                    //wView.setWebViewClient(new MyWebViewClient());
                         break;
-                    }
+                   // }
                 }
             }
 
