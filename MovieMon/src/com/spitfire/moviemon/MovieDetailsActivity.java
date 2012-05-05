@@ -72,7 +72,7 @@ public class MovieDetailsActivity extends Activity implements OnClickListener {
                         //startActivity(intent);
                         String urlToPlay = null;
                         if (movie.getTitle().equalsIgnoreCase("Rocky")){
-                            urlToPlay="http://m.youtube.com/watch?v=aJmr5CKY73M";
+                            urlToPlay="http://m.youtube.com/watch?v=A7YmojUJagk";
                         }else{
                             urlToPlay="http://m.youtube.com/watch?v=g8evyE9TuYk";
                         }
